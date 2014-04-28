@@ -14,7 +14,7 @@ task.js
 board.js
 ConnectionStrings.config
 # Build results
-
+packages/
 [Dd]ebug/
 [Rr]elease/
 x64/
