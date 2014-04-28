@@ -21,7 +21,13 @@ export function accordion(): ng.IDirective {
                          element.parent().accordion('refresh');
                      }
                      else {
-                         element.closest("div[class='tasklist']").accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false });
+                         if (element.closest) {
+                             //We don't always have the full jQuery
+                             element.closest("div[class='tasklist']").accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false });
+                         }
+                         else {
+                             element.parent().accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false });
+                         }
                          jQuery(".tasklist").sortable({ connectWith: ".tasklist", update: update, forcePlaceholderSize: true, handle: 'h3' });
                      }
                      

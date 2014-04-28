@@ -12,6 +12,7 @@ require.config({
             exports: "$"
         },
         angular: {
+            deps: ["jquery", "jqueryUI"],
             exports: 'angular'
         }
     }
