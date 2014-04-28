@@ -1,0 +1,29 @@
+﻿.taskcontainer {
+    max-width: 400px;
+    width: 30%;
+    float: left;
+    padding-left: 2%;
+}
+
+.tasklist {
+    background: #EEE;
+    padding: 5px;
+    list-style-type: none;
+    height:537px;
+    overflow:auto;
+}
+
+.delete
+{
+    float:right;
+    width:25px;
+    height:25px;
+}
+@media only screen and (max-width: 800px) {
+    .taskcontainer {
+        max-width: 400px;
+        width: 95%;
+        float: none;
+        padding-left: 1%;
+    }
+}

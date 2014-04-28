@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GetITDone</title>
+    <link href="~/Styles/Index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+</head>
+
+<body>
+    <div id="todomvc" ng-controller="TaskController">
+        <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" set-board-id ng-cloak>
+            <h2>{{ board.Name }} ({{ board.Tasks.length }})</h2>
+            <div class="tasklist" set-background-style>
+                <div ng-repeat="task in board.Tasks" ng-cloak accordion>
+                    <h3> {{ task.Name }}</h3>
+                    <div class='taskdiv'>
+                        <a ng-click="deleteTask(task, board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
+                        {{ task.Details }}<br />
+                    </div>
+                </div>
+                <div accordion>
+                    <h3>New Task</h3>
+                    <div class="taskdiv">
+                        <form id="todo-form" ng-submit="addTask()">
+                            <h3>New</h3>
+                            <div>
+                                Name<br />
+                                <input id="name" type="text" name="Name" ng-model="board.newTask.Name" />
+                                <br />
+                                Details
+                                <br />
+                                <textarea id="details" rows="2" name="Details" cols="20" ng-model="board.newTask.Details"></textarea>
+                                <br />
+                                Catagory
+                                <br />
+                                <br />
+                                <input id="puttask" type="submit" value="Create Task" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script data-main="Scripts/AppConfig" type="text/javascript" src="Scripts/require.js"></script>
+
+</body>
+</html>
+

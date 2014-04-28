@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{006E61AA-C806-48DA-B1CB-7FA603C3CB32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GetItDone.DAL</RootNamespace>
+    <AssemblyName>GetItDone.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201404011649560_InitialUserTask.cs" />
+    <Compile Include="Migrations\201404011649560_InitialUserTask.Designer.cs">
+      <DependentUpon>201404011649560_InitialUserTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404011708035_NameUpdates.cs" />
+    <Compile Include="Migrations\201404011708035_NameUpdates.Designer.cs">
+      <DependentUpon>201404011708035_NameUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404012303218_DoneBool.cs" />
+    <Compile Include="Migrations\201404012303218_DoneBool.Designer.cs">
+      <DependentUpon>201404012303218_DoneBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404012316514_datetime2.cs" />
+    <Compile Include="Migrations\201404012316514_datetime2.Designer.cs">
+      <DependentUpon>201404012316514_datetime2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404021925422_PasswordField.cs" />
+    <Compile Include="Migrations\201404021925422_PasswordField.Designer.cs">
+      <DependentUpon>201404021925422_PasswordField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404021946359_SessionTable.cs" />
+    <Compile Include="Migrations\201404021946359_SessionTable.Designer.cs">
+      <DependentUpon>201404021946359_SessionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404022035491_SessionRename.cs" />
+    <Compile Include="Migrations\201404022035491_SessionRename.Designer.cs">
+      <DependentUpon>201404022035491_SessionRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404022054077_SessionUpdate.cs" />
+    <Compile Include="Migrations\201404022054077_SessionUpdate.Designer.cs">
+      <DependentUpon>201404022054077_SessionUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404050117224_RemoveTaskDetailsRequired.cs" />
+    <Compile Include="Migrations\201404050117224_RemoveTaskDetailsRequired.Designer.cs">
+      <DependentUpon>201404050117224_RemoveTaskDetailsRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404051519314_TaskStatus.cs" />
+    <Compile Include="Migrations\201404051519314_TaskStatus.Designer.cs">
+      <DependentUpon>201404051519314_TaskStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404090030201_CatagoryTable.cs" />
+    <Compile Include="Migrations\201404090030201_CatagoryTable.Designer.cs">
+      <DependentUpon>201404090030201_CatagoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404151837411_RenameCompleteToMoved.cs" />
+    <Compile Include="Migrations\201404151837411_RenameCompleteToMoved.Designer.cs">
+      <DependentUpon>201404151837411_RenameCompleteToMoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404220322264_CatagoryToBoards.cs" />
+    <Compile Include="Migrations\201404220322264_CatagoryToBoards.Designer.cs">
+      <DependentUpon>201404220322264_CatagoryToBoards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\GetItDoneContext.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404011649560_InitialUserTask.resx">
+      <DependentUpon>201404011649560_InitialUserTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404011708035_NameUpdates.resx">
+      <DependentUpon>201404011708035_NameUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404012303218_DoneBool.resx">
+      <DependentUpon>201404012303218_DoneBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404012316514_datetime2.resx">
+      <DependentUpon>201404012316514_datetime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404021925422_PasswordField.resx">
+      <DependentUpon>201404021925422_PasswordField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404021946359_SessionTable.resx">
+      <DependentUpon>201404021946359_SessionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404022035491_SessionRename.resx">
+      <DependentUpon>201404022035491_SessionRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404022054077_SessionUpdate.resx">
+      <DependentUpon>201404022054077_SessionUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404050117224_RemoveTaskDetailsRequired.resx">
+      <DependentUpon>201404050117224_RemoveTaskDetailsRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404051519314_TaskStatus.resx">
+      <DependentUpon>201404051519314_TaskStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404090030201_CatagoryTable.resx">
+      <DependentUpon>201404090030201_CatagoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404151837411_RenameCompleteToMoved.resx">
+      <DependentUpon>201404151837411_RenameCompleteToMoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404220322264_CatagoryToBoards.resx">
+      <DependentUpon>201404220322264_CatagoryToBoards.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
