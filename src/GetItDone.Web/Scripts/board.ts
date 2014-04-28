@@ -7,12 +7,16 @@ export class Board {
     ColorCode: string;
     Tasks: T.Task[];
     newTask: T.Task;
+    Filter: number;
 } 
 
 export interface BoardScope extends ng.IScope{
     boards: Board[];
     taskMoved: (taskID: number, boardID: number) => any;
-    deleteTask: (task: T.Task, board:Board) => any;
+    deleteTask: (task: T.Task, board: Board) => any;
+    updateBoardFilter: (board: Board) => any;
+    refreshBoard: (board: Board) => any;
+    refreshAllBoards: (scope: BoardScope) => any;
     name: string;
     details: string;
     addTask: any;

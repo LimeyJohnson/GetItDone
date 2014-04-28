@@ -23,5 +23,21 @@ namespace GetItDone.Web.Controllers
             }
             return null;
         }
+
+        [HttpPost]
+        public IHttpActionResult UpdateFilter(Board board)
+        {
+             User user = CookieHelper.LoggedInUser(Request, db);
+             if (user != null)
+             {
+                 db.Entry(user).Collection(u=>u.Boards).Load();
+                 Board existingBoard = user.Boards.Find(b => b.BoardID == board.BoardID);
+                 if (existingBoard == null) { return StatusCode(HttpStatusCode.BadRequest); }
+                 existingBoard.Filter = board.Filter;
+                 db.SaveChanges();
+                 return Ok(existingBoard);
+             }
+             return StatusCode(HttpStatusCode.BadRequest);
+        }
     }
 }
