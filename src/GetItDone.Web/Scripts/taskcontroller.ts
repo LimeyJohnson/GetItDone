@@ -55,7 +55,7 @@ export class TaskController {
             });
         };
         this.scope.updateBoard = function (board: B.Board) {
-            $http.post("/api/Board/UpdateFilter", board).success(function (data: B.Board) {
+            $http.post("/api/Board/Update", board).success(function (data: B.Board) {
                 $scope.refreshBoard(board);
             });
         };
