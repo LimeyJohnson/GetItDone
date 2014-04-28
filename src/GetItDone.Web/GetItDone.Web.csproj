@@ -273,6 +273,10 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+  <Copy SourceFiles="ConnectionStrings.config.example" 
+    DestinationFiles="ConnectionStrings.config" SkipUnchangedFiles="true" 
+    Condition="!Exists('ConnectionStrings.config')">
+    </Copy>
   </Target>
   -->
 </Project>
