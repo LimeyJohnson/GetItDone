@@ -85,7 +85,21 @@ namespace GetItDone.Web.Controllers
             return StatusCode(HttpStatusCode.BadRequest);
 
         }
-
+        [HttpPost]
+        public IHttpActionResult Update(Task postedTask)
+        {
+            if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
+            User user = CookieHelper.LoggedInUser(Request, db);
+            db.Entry(user).Collection(u => u.Tasks).Load();
+            if (user != null)
+            {
+                Task editedTask = user.Tasks.Find(t => t.TaskID == postedTask.TaskID);
+                db.Entry(editedTask).CurrentValues.SetValues(postedTask);
+                db.SaveChanges();
+                return Ok(editedTask);
+            }
+            return StatusCode(HttpStatusCode.BadRequest);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -29,14 +29,15 @@ export class TaskController {
                     }
                 }
             }
-
             $http.post("/api/Task/MoveTask/" + boardID, originalTask).success(function (updatedTask) {
-                $scope.$apply(function () {
-                    originalBoard.Tasks.splice(originalBoard.Tasks.indexOf(originalTask), 1);
-                    newBoard.Tasks.push(updatedTask);
-                });
-
-            })
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        newBoard.Tasks.push(updatedTask);
+                        originalBoard.Tasks.splice(originalBoard.Tasks.indexOf(originalTask), 1);
+                    });
+                }, 0);
+            });
+            
 
         };
         this.scope.addTask = function () {
@@ -53,7 +54,7 @@ export class TaskController {
                 board.Tasks.splice(board.Tasks.indexOf(task), 1);
             });
         };
-        this.scope.updateBoardFilter = function (board: B.Board) {
+        this.scope.updateBoard = function (board: B.Board) {
             $http.post("/api/Board/UpdateFilter", board).success(function (data: B.Board) {
                 $scope.refreshBoard(board);
             });
@@ -72,6 +73,15 @@ export class TaskController {
                 }
 
             });
+        }
+        this.scope.setTaskEditable = function (task: T.Task) {
+            task.EditMode = true;
+        }
+        this.scope.editTask = function (task: T.Task) {
+            $http.post("/api/Task/Update/", task).success(function (data) {
+                task = data;
+            });
+            task.EditMode = false;
         }
         this.scope.refreshAllBoards(this.scope);
     }

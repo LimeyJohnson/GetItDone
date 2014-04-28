@@ -25,7 +25,7 @@ namespace GetItDone.Web.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult UpdateFilter(Board board)
+        public IHttpActionResult Update(Board board)
         {
              User user = CookieHelper.LoggedInUser(Request, db);
              if (user != null)
@@ -33,7 +33,7 @@ namespace GetItDone.Web.Controllers
                  db.Entry(user).Collection(u=>u.Boards).Load();
                  Board existingBoard = user.Boards.Find(b => b.BoardID == board.BoardID);
                  if (existingBoard == null) { return StatusCode(HttpStatusCode.BadRequest); }
-                 existingBoard.Filter = board.Filter;
+                 db.Entry(existingBoard).CurrentValues.SetValues(board);
                  db.SaveChanges();
                  return Ok(existingBoard);
              }

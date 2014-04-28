@@ -18,6 +18,7 @@ namespace GetItDone.DAL.Models
         /// <summary>
         /// If not null it will only show tasks that have a changed date less than today + Filter
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<int> Filter { get; set; }
 
     }

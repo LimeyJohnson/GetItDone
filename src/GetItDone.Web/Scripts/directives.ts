@@ -12,7 +12,9 @@ export function accordion(): ng.IDirective {
                      if (ui.sender) { //Only trigger for the last item
                          var taskID = ui.item.attr("task-id");
                          var boardID = ui.item.closest("div[board-id]").attr("board-id");
+                         ui.item.remove();
                          scope.taskMoved(taskID, boardID);
+                         
                      }
                  }
                  function createAccordion() {

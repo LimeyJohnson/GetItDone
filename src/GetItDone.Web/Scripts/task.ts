@@ -10,6 +10,7 @@ export class Task {
     //How long the task is going to take in min
     Duration: number;
     Status: number;
+    EditMode: boolean;
 }
 
 

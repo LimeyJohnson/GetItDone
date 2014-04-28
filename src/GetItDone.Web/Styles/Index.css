@@ -19,6 +19,15 @@
     width:25px;
     height:25px;
 }
+.edit
+{
+    float:left;
+    width:25px;
+    height:25px;
+}
+#createdDate{
+    clear:both;
+}
 @media only screen and (max-width: 800px) {
     .taskcontainer {
         max-width: 400px;

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GetItDone.DAL.Models
 {
+    
     public class Task
     {
         public Task()
@@ -17,7 +18,8 @@ namespace GetItDone.DAL.Models
         
         [Required]
         public string Name { get; set; }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Details { get; set; }
         
         [Required]
@@ -29,11 +31,14 @@ namespace GetItDone.DAL.Models
         public DateTime Created { get; set; }
         
         [Column(TypeName = "datetime2")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<DateTime> Due { get; set; }
         
         [Column(TypeName = "datetime2")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<DateTime> Moved{ get; set; }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<int> Priority { get; set; }
        
         //How long the task is going to take in min
@@ -46,6 +51,7 @@ namespace GetItDone.DAL.Models
             this.Moved = DateTime.Now;
             this.Board = newBoard;
         }
+        [JsonIgnore]
         public bool Visible
         {
             get
