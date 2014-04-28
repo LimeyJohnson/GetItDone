@@ -1,15 +1,9 @@
-﻿using System;
+﻿using GetItDone.DAL;
+using GetItDone.DAL.Models;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using GetItDone.DAL.Models;
-using GetItDone.DAL;
 
 
 namespace GetItDone.Web.Controllers
@@ -18,23 +12,7 @@ namespace GetItDone.Web.Controllers
     {
         private GetItDoneContext db = new GetItDoneContext();
 
-        /*
-         * This gets all of the tasks that should be shown on the home screen. 
-         * That is to say all tasks whose status is backlog, inprogress, or done
-         */
-        // GET api/Task/GetTaskList/id
-        [HttpGet]
-        public IEnumerable<Task> GetTaskList(int id)
-        {
-            User user = CookieHelper.LoggedInUser(Request, db);
-            if (user != null)
-            {
-
-                var userTasks = (from u in db.Users.Include(u => u.Tasks.Select(t => t.Board)) where u.UserID == user.UserID select u).FirstOrDefault<User>();
-                return userTasks.Tasks.Where(t => t.Board.BoardID == id).OrderBy(t => t.Priority);
-            }
-            return null;
-        }
+       
         [HttpGet]
         public List<Board> Boards()
         {
@@ -63,7 +41,7 @@ namespace GetItDone.Web.Controllers
                 db.Entry(user).Collection(u=> u.Boards).Load();
                 Task movedTask = user.Tasks.Find(t => t.TaskID == postedTask.TaskID);
                 Board newBoard = user.Boards.Find(b=>b.BoardID == id);
-                movedTask.Board = newBoard;
+                movedTask.ChangeBoard(newBoard);
                 db.SaveChanges();
                 return Ok(movedTask);
             }

@@ -46,5 +46,16 @@ namespace GetItDone.DAL.Models
             this.Moved = DateTime.Now;
             this.Board = newBoard;
         }
+        public bool Visible
+        {
+            get
+            {
+                if (Board.Filter == null || Moved == null) { return true; }
+                else
+                {
+                    return Moved.Value > DateTime.Now.AddDays(Board.Filter.Value * -1);
+                }
+            }
+        }
     }
 }

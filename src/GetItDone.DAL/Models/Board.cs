@@ -15,6 +15,10 @@ namespace GetItDone.DAL.Models
         [Required]
         [JsonIgnore]
         public virtual User Owner { get; set; }
+        /// <summary>
+        /// If not null it will only show tasks that have a changed date less than today + Filter
+        /// </summary>
+        public Nullable<int> Filter { get; set; }
 
     }
 }

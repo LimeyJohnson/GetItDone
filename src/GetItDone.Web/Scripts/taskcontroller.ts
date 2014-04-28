@@ -56,7 +56,7 @@ export class TaskController {
 
     }
     refreshBoard(board: B.Board) {
-        this.httpService.get("/api/Task/GetTaskList/" + board.BoardID).success(function (tl, status2) {
+        this.httpService.get("/api/Board/GetTaskList/" + board.BoardID).success(function (tl, status2) {
             board.Tasks = tl;
         });
     }
