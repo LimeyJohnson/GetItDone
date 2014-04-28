@@ -1,0 +1,3 @@
+<connectionStrings>
+    <add name="TestString" connectionString="Test Connection String" providerName="Test Provider" />
+</connectionStrings>
