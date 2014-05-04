@@ -37,8 +37,19 @@ export class TaskController {
                     });
                 }, 0);
             });
-            
+        };
+        this.scope.TaskEquals = function (a: T.Task, b: T.Task):boolean {
+            if (a.Name != b.Name) return false;
+            if (a.Details != b.Details) return false;
+            return true;
+        }
+        this.scope.TaskListEquals = function(a:T.Task[], b:T.Task[]): boolean{
 
+            if (!a || !b || a.length != a.length) return false;
+            for (var x = 0; x < a.length; x++) {
+                if(!$scope.TaskEquals(a[x], b[x])) return false;
+            }
+            return true;
         };
         this.scope.addTask = function () {
             var board = this.board;
@@ -64,16 +75,19 @@ export class TaskController {
                 board.Tasks = tl;
             });
         }
-
-        this.scope.refreshAllBoards = function (scope: B.BoardScope) {
+        this.scope.refeshBoardTasks = function (scope: B.BoardScope) {
+            for (var x = 0; x < scope.boards.length; x++) {
+                this.refreshBoard(scope.boards[x]);
+            }
+        }
+        this.scope.refreshBoards = function (scope: B.BoardScope) {
             $http.get("/api/Task/Boards/").success((data: B.Board[], status) => {
                 scope.boards = data;
-                for (var x = 0; x < scope.boards.length; x++) {
-                    this.refreshBoard(scope.boards[x]);
-                }
 
+                $scope.refeshBoardTasks(scope);
             });
         }
+        
         this.scope.setTaskEditable = function (task: T.Task) {
             task.EditMode = true;
         }
@@ -83,7 +97,11 @@ export class TaskController {
             });
             task.EditMode = false;
         }
-        this.scope.refreshAllBoards(this.scope);
+        this.scope.refreshBoards(this.scope);
+
+        setInterval(function () {
+            $scope.refeshBoardTasks($scope);
+        }, 5000);
     }
 
 

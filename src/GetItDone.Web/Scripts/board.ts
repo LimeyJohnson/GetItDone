@@ -16,7 +16,8 @@ export interface BoardScope extends ng.IScope{
     deleteTask: (task: T.Task, board: Board) => any;
     updateBoard: (board: Board) => any;
     refreshBoard: (board: Board) => any;
-    refreshAllBoards: (scope: BoardScope) => any;
+    refreshBoards: (scope: BoardScope) => any;
+    refeshBoardTasks: (scope: BoardScope) => any;
     setTaskEditable: (task: T.Task) => any;
     editTask: (task: T.Task) => any;
     taskEdit: number;
@@ -26,4 +27,7 @@ export interface BoardScope extends ng.IScope{
     task: T.Task; // Current task when scope is used in child scope context.
     $parent: BoardScope;
     board: Board;
+
+    TaskEquals: (a: T.Task, b: T.Task) => boolean;
+    TaskListEquals: (a: T.Task[], b: T.Task[]) => boolean;
 }
