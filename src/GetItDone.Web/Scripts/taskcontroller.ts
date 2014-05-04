@@ -101,7 +101,7 @@ export class TaskController {
 
         setInterval(function () {
             $scope.refeshBoardTasks($scope);
-        }, 5000);
+        }, 60000);
     }
 
 
