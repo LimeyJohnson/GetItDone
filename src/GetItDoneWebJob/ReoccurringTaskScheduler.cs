@@ -15,8 +15,15 @@ namespace GetItDoneWebJob
             List<Task> masterTasks = (from t in db.Tasks where t.ReoccurringSchedule != null select t).ToList<Task>();
             foreach(Task master in masterTasks)
             {
-                Task latestChildTask = (from t in db.Tasks.Include("ReoccurringParent")
-            }
+                Task latestChildTask = (from t in db.Tasks.Include("ReoccurringParent") where t.ReoccurringParent.TaskID == master.TaskID select t).OrderByDescending(t => t.Created).FirstOrDefault<Task>();
+                if(latestChildTask == null || (DateTime.Now - latestChildTask.Created).TotalDays > master.ReoccurringSchedule)
+                {
+                    db.Entry(latestChildTask).State = System.Data.Entity.EntityState.Detached;
+                    latestChildTask.Created = DateTime.Now;
+                    db.Tasks.Add(latestChildTask);
+                    db.SaveChanges();
+                }
+             }
         }
     }
 }
