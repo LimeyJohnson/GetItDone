@@ -7,13 +7,13 @@ namespace GetItDone.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class ReoccurringTasks : IMigrationMetadata
+    public sealed partial class TaskSchedule : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ReoccurringTasks));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TaskSchedule));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405060319435_ReoccurringTasks"; }
+            get { return "201405070242169_TaskSchedule"; }
         }
         
         string IMigrationMetadata.Source

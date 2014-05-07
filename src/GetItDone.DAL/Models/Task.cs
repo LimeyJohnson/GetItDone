@@ -44,11 +44,9 @@ namespace GetItDone.DAL.Models
         //How long the task is going to take in min
         public int Duration { get; set; }
 
-        public Task ReoccurringParent { get; set; }
-
-        public Nullable<int> ReoccurringSchedule { get; set; }
-
         public Board Board { get; set; }
+
+        public TaskSchedule Schedule { get; set; }
 
         public void ChangeBoard(Board newBoard)
         {
