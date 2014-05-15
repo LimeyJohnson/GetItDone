@@ -11,12 +11,13 @@ namespace GetItDoneWebJob
     {
         internal static void Schedule()
         {
-            GetItDoneContext db = new GetItDoneContext();
-            List<Task> masterTasks = (from t in db.Tasks where t.ReoccurringSchedule != null select t).ToList<Task>();
-            foreach(Task master in masterTasks)
+            GetItDoneContext db = new GetItDoneContext("GetItDone");
+            List<TaskSchedule> schedules = (from s in db.Schedules.Include("Task") select s).ToList<TaskSchedule>();
+            foreach(TaskSchedule schedule in schedules)
             {
-                Task latestChildTask = (from t in db.Tasks.Include("ReoccurringParent") where t.ReoccurringParent.TaskID == master.TaskID select t).OrderByDescending(t => t.Created).FirstOrDefault<Task>();
-                if(latestChildTask == null || (DateTime.Now - latestChildTask.Created).TotalDays > master.ReoccurringSchedule)
+                schedule.Tasks.Sort(new Comparison<Task>((t1,t2)=>{return (t1.Created - t2.Created).Hours;}));
+                Task latestChildTask = schedule.Tasks[0];
+                if(latestChildTask == null || (DateTime.Now - latestChildTask.Created).TotalDays > schedule.Schedule)
                 {
                     db.Entry(latestChildTask).State = System.Data.Entity.EntityState.Detached;
                     latestChildTask.Created = DateTime.Now;

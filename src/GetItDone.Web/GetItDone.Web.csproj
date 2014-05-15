@@ -178,11 +178,13 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="ConnectionStrings.config.example" />
     <None Include="Properties\PublishProfiles\GetShitDone %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\GetShitDone %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\GetShitDone.pubxml" />
     <Content Include="Images\deleteicon.png" />
     <Content Include="Images\editicon.png" />
+    <Content Include="Images\menuicon.png" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AppConfig.js" />
@@ -199,6 +201,7 @@
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\CookieHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

@@ -15,59 +15,63 @@
     <div id="todomvc" ng-controller="TaskController">
         <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" set-board-id ng-cloak>
             <h2>{{ board.Name }} ({{ board.Tasks.length }})</h2>
+            
+            <img src="~/Images/menuicon.png" ng-click="board.Menu = true"/>
             <div class="tasklist">
-                <div ng-show="board.Filter">
+                <div ng-show="board.Menu">
                     1<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
                     7<input type="radio" ng-model="board.Filter" value="7" ng-change="updateBoard(board)" />
                     30<input type="radio" ng-model="board.Filter" value="30" ng-change="updateBoard(board)" />
                 </div>
-                <div ng-repeat="task in board.Tasks" ng-cloak accordion>
-                    <h3> {{ task.Name }}</h3>
-                    <div class='taskdiv'>
-                        <div ng-hide="task.EditMode">
-                            <div>
-                                <a ng-click="deleteTask(task, board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
-                                <a ng-click="setTaskEditable(task)"><img class="edit" src="~/Images/editicon.png" /></a>
+                <div ng-hide="board.Menu">
+                    <div ng-repeat="task in board.Tasks" ng-cloak accordion>
+                        <h3> {{ task.Name }}</h3>
+                        <div class='taskdiv'>
+                            <div ng-hide="task.EditMode">
+                                <div>
+                                    <a ng-click="deleteTask(task, board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
+                                    <a ng-click="setTaskEditable(task)"><img class="edit" src="~/Images/editicon.png" /></a>
+                                </div>
+                                <div id="createdDate">
+                                    {{ task.Created | date: short }}
+                                </div>
+                                <div>
+                                    {{ task.Details }}
+                                </div>
                             </div>
-                            <div id="createdDate">
-                                {{ task.Created | date: short }}
-                            </div>
-                            <div>
-                                {{ task.Details }}
-                            </div>
+                            <form id="todo-form" ng-submit="editTask(task)" ng-show="task.EditMode">
+                                <div>
+                                    Name<br />
+                                    <input id="name" type="text" name="Name" ng-model="task.Name" />
+                                    <br />
+                                    Details
+                                    <br />
+                                    <textarea id="details" rows="2" name="Details" cols="20" ng-model="task.Details"></textarea>
+                                    <input id="updatetask" type="submit" value="Update Task" />
+                                </div>
+                            </form>
                         </div>
-                        <form id="todo-form" ng-submit="editTask(task)" ng-show="task.EditMode">
-                            <div>
-                                Name<br />
-                                <input id="name" type="text" name="Name" ng-model="task.Name" />
-                                <br />
-                                Details
-                                <br />
-                                <textarea id="details" rows="2" name="Details" cols="20" ng-model="task.Details"></textarea>
-                                <input id="updatetask" type="submit" value="Update Task" />
-                            </div>
-                        </form>
                     </div>
-                </div>
-                <div accordion>
-                    <h3>New Task</h3>
-                    <div class="taskdiv">
-                        <form id="todo-form" ng-submit="addTask()">
-                            <h3>New</h3>
-                            <div>
-                                Name<br />
-                                <input id="name" type="text" name="Name" ng-model="board.newTask.Name" />
-                                <br />
-                                Details
-                                <br />
-                                <textarea id="details" rows="2" name="Details" cols="20" ng-model="board.newTask.Details"></textarea>
-                                <br />
-                                Catagory
-                                <br />
-                                <br />
-                                <input id="puttask" type="submit" value="Create Task" />
-                            </div>
-                        </form>
+                    <div accordion>
+                        <h3>New Task</h3>
+                        <div class="taskdiv">
+                            <form id="todo-form" ng-submit="addTask()">
+                                <h3>New</h3>
+                                <div>
+                                    Name<br />
+                                    <input id="name" type="text" name="Name" ng-model="board.newTask.Name" />
+                                    <br />
+                                    Details
+                                    <br />
+                                    <textarea id="details" rows="2" name="Details" cols="20" ng-model="board.newTask.Details"></textarea>
+                                    <br />
+                                    Catagory
+                                    <br />
+                                    <br />
+                                    <input id="puttask" type="submit" value="Create Task" />
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

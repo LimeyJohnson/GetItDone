@@ -10,10 +10,13 @@ namespace GetItDone.DAL
 {
     public class GetItDoneContext : DbContext
     {
-        public GetItDoneContext() : base("GetItDone") 
+        public GetItDoneContext(string connString)
+            : base(connString)
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+        public GetItDoneContext() : this("GetItDone") { } 
+
         public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Session> Sessions { get; set; }

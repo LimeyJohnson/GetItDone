@@ -10,7 +10,7 @@ namespace GetItDoneWebJob
     {
         static void Main(string[] args)
         {
-
+            ReocurringTaskScheduler.Schedule();
         }
     }
 }

@@ -8,6 +8,7 @@ export class Board {
     Tasks: T.Task[];
     newTask: T.Task;
     Filter: number;
+    Menu: boolean;
 } 
 
 export interface BoardScope extends ng.IScope{
