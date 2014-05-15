@@ -9,25 +9,33 @@
     background: #EEE;
     padding: 5px;
     list-style-type: none;
-    height:381px;
-    overflow:auto;
+    height: 381px;
+    overflow: auto;
 }
 
-.delete
-{
-    float:right;
-    width:25px;
-    height:25px;
+.delete {
+    float: right;
+    width: 25px;
+    height: 25px;
 }
-.edit
-{
-    float:left;
-    width:25px;
-    height:25px;
+
+.edit {
+    float: left;
+    width: 25px;
+    height: 25px;
 }
-#createdDate{
-    clear:both;
+
+.menu {
+    width: 35px;
+    position: relative;
+    float: right;
+    margin-top: -49px;
 }
+
+#createdDate {
+    clear: both;
+}
+
 @media only screen and (max-width: 800px) {
     .taskcontainer {
         max-width: 400px;
