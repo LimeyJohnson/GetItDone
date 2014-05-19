@@ -31,6 +31,9 @@
     float: right;
     margin-top: -49px;
 }
+.newboard {
+    margin-left:35px;
+}
 
 #createdDate {
     clear: both;

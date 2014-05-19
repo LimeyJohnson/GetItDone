@@ -13,19 +13,33 @@
 
 <body>
     <div id="todomvc" ng-controller="TaskController">
+        <div class="newboard">
+            
+                <input type="text" ng-model="newBoard.Name" />
+                <input type="button" ng-click="createBoard()" value="Create Board" />
+            
+        </div>
         <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" set-board-id ng-cloak>
             <div>
                 <h2>{{ board.Name }} ({{ board.Tasks.length }})</h2>
-
                 <img src="~/Images/menuicon.png" ng-click="board.Menu = !board.Menu" class="menu" />
             </div>
-            <div class="tasklist">
+            <div>
                 <div ng-show="board.Menu">
-                    1<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
-                    7<input type="radio" ng-model="board.Filter" value="7" ng-change="updateBoard(board)" />
-                    30<input type="radio" ng-model="board.Filter" value="30" ng-change="updateBoard(board)" />
+                    <div>
+                        <a ng-click="deleteBoard(board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
+                    </div>
+                    <div>
+                        Today<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
+                        Yesterday<input type="radio" ng-model="board.Filter" value="2" ng-change="updateBoard(board)" />
+                        7<input type="radio" ng-model="board.Filter" value="7" ng-change="updateBoard(board)" />
+                        30<input type="radio" ng-model="board.Filter" value="30" ng-change="updateBoard(board)" />
+                    </div>
+                    <div>
+                        <input id="name" type="text" name="Name" ng-model="board.Name" /> <input type="button" value="Change" ng-click="updateBoard(board)" />
+                    </div>
                 </div>
-                <div ng-hide="board.Menu">
+                <div ng-hide="board.Menu" class="tasklist">
                     <div ng-repeat="task in board.Tasks" ng-cloak accordion>
                         <h3> {{ task.Name }}</h3>
                         <div class='taskdiv'>
@@ -78,6 +92,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
     <script data-main="Scripts/AppConfig" type="text/javascript" src="Scripts/require.js"></script>
 

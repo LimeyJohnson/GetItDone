@@ -38,16 +38,16 @@ export class TaskController {
                 }, 0);
             });
         };
-        this.scope.TaskEquals = function (a: T.Task, b: T.Task):boolean {
+        this.scope.TaskEquals = function (a: T.Task, b: T.Task): boolean {
             if (a.Name != b.Name) return false;
             if (a.Details != b.Details) return false;
             return true;
         }
-        this.scope.TaskListEquals = function(a:T.Task[], b:T.Task[]): boolean{
+        this.scope.TaskListEquals = function (a: T.Task[], b: T.Task[]): boolean {
 
             if (!a || !b || a.length != a.length) return false;
             for (var x = 0; x < a.length; x++) {
-                if(!$scope.TaskEquals(a[x], b[x])) return false;
+                if (!$scope.TaskEquals(a[x], b[x])) return false;
             }
             return true;
         };
@@ -68,6 +68,7 @@ export class TaskController {
         this.scope.updateBoard = function (board: B.Board) {
             $http.post("/api/Board/Update", board).success(function (data: B.Board) {
                 $scope.refreshBoard(board);
+
             });
         };
         this.scope.refreshBoard = function (board: B.Board) {
@@ -87,7 +88,7 @@ export class TaskController {
                 $scope.refeshBoardTasks(scope);
             });
         }
-        
+
         this.scope.setTaskEditable = function (task: T.Task) {
             task.EditMode = true;
         }
@@ -97,7 +98,23 @@ export class TaskController {
             });
             task.EditMode = false;
         }
+
+        this.scope.deleteBoard = function (board: B.Board) {
+            $http.delete("/api/Board/DeleteBoard/" + board.BoardID).success(function (callback) {
+                $scope.boards.splice($scope.boards.indexOf(board), 1);
+            });
+        }
         this.scope.refreshBoards(this.scope);
+
+
+        this.scope.createBoard = function () {
+            $http.post("/api/Board/NewBoard/", $scope.newBoard).success(function (postedBoard: B.Board) {
+                $scope.boards.push(postedBoard);
+                $scope.newBoard = null;
+            }).error(function (callback) {
+                    alert("error");
+                });
+        };
 
         setInterval(function () {
             $scope.refeshBoardTasks($scope);

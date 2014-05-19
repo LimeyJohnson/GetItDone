@@ -21,6 +21,9 @@ export interface BoardScope extends ng.IScope{
     refeshBoardTasks: (scope: BoardScope) => any;
     setTaskEditable: (task: T.Task) => any;
     editTask: (task: T.Task) => any;
+    deleteBoard: (board: Board) => any;
+    createBoard: () => any;
+    newBoard: Board;
     taskEdit: number;
     name: string;
     details: string;
