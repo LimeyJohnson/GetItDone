@@ -107,6 +107,10 @@
     <Compile Include="Migrations\201404281845415_BoardFilter.Designer.cs">
       <DependentUpon>201404281845415_BoardFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405070242169_TaskSchedule.cs" />
+    <Compile Include="Migrations\201405070242169_TaskSchedule.Designer.cs">
+      <DependentUpon>201405070242169_TaskSchedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GetItDoneContext.cs" />
     <Compile Include="Models\Session.cs" />
@@ -162,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404281845415_BoardFilter.resx">
       <DependentUpon>201404281845415_BoardFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405070242169_TaskSchedule.resx">
+      <DependentUpon>201405070242169_TaskSchedule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
