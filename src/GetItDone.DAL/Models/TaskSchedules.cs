@@ -10,12 +10,11 @@ namespace GetItDone.DAL.Models
     {
         [Key]
         public int TaskScheduleID { get; set; }
-        
-        /// <summary>
-        /// The time between tasks in Days
-        /// </summary>
-        public int Schedule { get; set; }
 
-        public virtual List<Task> Tasks { get; set; }
+        public Task RecurringTask{ get; set; }
+
+        public Schedules Schedule { get; set; }
+
+        public Board InitialBoard { get; set; }
     }
 }

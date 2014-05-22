@@ -25,8 +25,10 @@ export function accordion(): ng.IDirective {
                          
                      }
                  }
-                 function activateFocus(event, ui) {
-                     taskList.scrollTop(taskList[0].scrollHeight);
+                 function activateFocus(event, ui: JQueryUI.AccordionUIParams) {
+                     if (ui.newPanel && ui.newPanel[0]) {
+                         taskList.scrollTop(ui.newPanel[0].scrollHeight);
+                     }
                  }
                  function createAccordion() {
                      if (taskList.hasClass('ui-accordion')) {

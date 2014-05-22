@@ -1,3 +1,4 @@
+import TS = require("taskschedule");
 export class Task {
     CatagoryID: number;
     TaskID: number;
@@ -11,6 +12,7 @@ export class Task {
     Duration: number;
     Status: number;
     EditMode: boolean;
+    Schedule: TS.TaskSchedule;
 }
 
 

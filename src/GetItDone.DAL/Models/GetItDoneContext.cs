@@ -21,8 +21,10 @@ namespace GetItDone.DAL
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Board> Boards{ get; set; }
-
         public DbSet<TaskSchedule> Schedules { get; set; }
+
+        public DbSet<UserBoard> UserBoards { get; set; }
+
     }
 
 }

@@ -55,6 +55,9 @@
                                 <div>
                                     {{ task.Details }}
                                 </div>
+                                <div ng-show="task.Schedule" >
+                                    {{ task.Schedule.Schedules }}
+                                </div>
                             </div>
                             <form id="todo-form" ng-submit="editTask(task)" ng-show="task.EditMode">
                                 <div>

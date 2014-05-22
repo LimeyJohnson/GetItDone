@@ -17,22 +17,23 @@ namespace GetItDone.Web.Controllers
         [HttpGet]
         public IHttpActionResult RecurringTasks()
         {
-            List<TaskSchedule> schedules = (from s in db.Schedules.Include("Tasks").Include("Tasks.Owner") select s).ToList<TaskSchedule>();
-            foreach (TaskSchedule schedule in schedules)
-            {
-                schedule.Tasks.Sort(new Comparison<Task>((t1, t2) => { return (t2.Created - t1.Created).Hours; }));
-                Task latestChildTask = schedule.Tasks[0];
-                if (latestChildTask == null || (DateTime.Now - latestChildTask.Created).TotalDays > schedule.Schedule)
-                {
-                    db.Entry(latestChildTask).State = System.Data.Entity.EntityState.Detached;
-                    latestChildTask.Created = DateTime.Now;
-                    latestChildTask.TaskID = 0;
+            return null;
+            //List<TaskSchedule> schedules = (from s in db.Schedules.Include("Tasks").Include("Tasks.Owner") select s).ToList<TaskSchedule>();
+            //foreach (TaskSchedule schedule in schedules)
+            //{
+            //    schedule.Tasks.Sort(new Comparison<Task>((t1, t2) => { return (t2.Created - t1.Created).Hours; }));
+            //    Task latestChildTask = schedule.Tasks[0];
+            //    if (latestChildTask == null || (DateTime.Now - latestChildTask.Created).TotalDays > schedule.Schedule)
+            //    {
+            //        db.Entry(latestChildTask).State = System.Data.Entity.EntityState.Detached;
+            //        latestChildTask.Created = DateTime.Now;
+            //        latestChildTask.TaskID = 0;
 
-                    db.Tasks.Add(latestChildTask);
-                    db.SaveChanges();
-                }
-            }
-            return StatusCode(HttpStatusCode.Accepted);
+            //        db.Tasks.Add(latestChildTask);
+            //        db.SaveChanges();
+            //    }
+            //}
+            //return StatusCode(HttpStatusCode.Accepted);
         }
     }
 }

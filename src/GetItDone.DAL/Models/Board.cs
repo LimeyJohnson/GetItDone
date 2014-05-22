@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GetItDone.DAL.Models
 {
+   
     public class Board
     {
         [Key]

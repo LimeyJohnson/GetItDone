@@ -24,7 +24,7 @@ namespace GetItDone.DAL.Models
         
         [Required]
         [JsonIgnore]
-        public virtual User Owner { get; set; }
+        public virtual User Creator { get; set; }
         
         [Required]
         [Column(TypeName = "datetime2")]
@@ -46,8 +46,6 @@ namespace GetItDone.DAL.Models
 
         public Board Board { get; set; }
 
-        public TaskSchedule Schedule { get; set; }
-
         public void ChangeBoard(Board newBoard)
         {
             this.Moved = DateTime.Now;
@@ -65,5 +63,9 @@ namespace GetItDone.DAL.Models
                 }
             }
         }
+    }
+    public class RecurringTask : Task
+    {
+        public TaskSchedule Schedule { get; set; }
     }
 }
