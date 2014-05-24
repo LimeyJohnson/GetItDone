@@ -6,7 +6,6 @@ export class Board {
     Name: string;
     ColorCode: string;
     Tasks: T.Task[];
-    newTask: T.Task;
     Filter: number;
     Menu: boolean;
     collapseAll: () => any;
@@ -29,7 +28,7 @@ export interface BoardScope extends ng.IScope{
     taskEdit: number;
     name: string;
     details: string;
-    addTask: any;
+    addNewTask: any;
     task: T.Task; // Current task when scope is used in child scope context.
     $parent: BoardScope;
     board: Board;
