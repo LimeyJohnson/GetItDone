@@ -17,6 +17,8 @@ namespace GetItDone.DAL.Models
         public DateTime Created { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime Expires { get; set; }
+        public int UserID { get; set; }
+        [ForeignKey("UserID")]
         public virtual User SessionUser { get; set; }
     }
 }

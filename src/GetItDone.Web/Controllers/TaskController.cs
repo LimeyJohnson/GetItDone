@@ -12,15 +12,14 @@ namespace GetItDone.Web.Controllers
     {
         private GetItDoneContext db = new GetItDoneContext();
 
-       
+
         [HttpGet]
         public List<Board> Boards()
         {
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Boards).Load();
-                return user.Boards;
+                return user.Boards(db);
             }
             return null;
         }
@@ -33,19 +32,26 @@ namespace GetItDone.Web.Controllers
         [HttpPost]
         public IHttpActionResult MoveTask(Task postedTask, int id)
         {
-            if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
+            if (postedTask == null || postedTask.TaskID == 0) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Tasks).Load();
-                db.Entry(user).Collection(u=> u.Boards).Load();
-                Task movedTask = user.Tasks.Find(t => t.TaskID == postedTask.TaskID);
-                Board newBoard = user.Boards.Find(b=>b.BoardID == id);
-                movedTask.ChangeBoard(newBoard);
-                db.SaveChanges();
-                return Ok(movedTask);
+                Task movedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
+                //We need to verify that they have access to the board that the task came from, and we need to verify they have access to the board it came from
+
+                Board newBoard = user.Boards(db).Find(b => b.BoardID == id);
+                if (newBoard != null && user.Boards(db).Contains(movedTask.Board))
+                {
+                    movedTask.ChangeBoard(newBoard);
+                    db.SaveChanges();
+                    return Ok(movedTask);
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.Forbidden);
+                }
             }
-            return StatusCode(HttpStatusCode.Forbidden);
+            return StatusCode(HttpStatusCode.Unauthorized);
         }
         [HttpDelete]
         public IHttpActionResult DeleteTask(int id)
@@ -53,11 +59,15 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Tasks).Load();
-                Task deletedTask = user.Tasks.Find(t => t.TaskID == id);
-                db.Tasks.Remove(deletedTask);
-                db.SaveChanges();
-                return StatusCode(HttpStatusCode.NoContent);
+
+                Task deletedTask = (from t in db.Tasks.Include("Board") where t.TaskID == id select t).FirstOrDefault<Task>();
+                if (user.Boards(db).Contains(deletedTask.Board))
+                {
+                    db.Tasks.Remove(deletedTask);
+                    db.SaveChanges();
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                return StatusCode(HttpStatusCode.Unauthorized);
             }
             return StatusCode(HttpStatusCode.BadRequest);
         }
@@ -66,19 +76,18 @@ namespace GetItDone.Web.Controllers
         {
             if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
-            db.Entry(user).Collection(u => u.Tasks).Load();
             if (user != null)
             {
+                postedTask.Board = (from c in db.Boards.Include("Tasks") where c.BoardID == id select c).FirstOrDefault<Board>();
                 //This request is to add a new task. New tasks can only be added to the backlog at the lowest priority
-                int? maxPriority = user.Tasks.Max(t => t.Priority);
+                int? maxPriority = postedTask.Board.Tasks.Max(t => t.Priority);
                 if (maxPriority.HasValue)
                 {
                     postedTask.Priority = maxPriority.Value + 1;
                 }
 
                 //Add in the board
-                postedTask.Board = (from c in db.Boards where c.BoardID == id select c).FirstOrDefault<Board>();
-                user.Tasks.Add(postedTask);
+                db.Tasks.Add(postedTask);
                 db.SaveChanges();
                 return Ok(postedTask);
             }
@@ -90,13 +99,17 @@ namespace GetItDone.Web.Controllers
         {
             if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
-            db.Entry(user).Collection(u => u.Tasks).Load();
+            
             if (user != null)
             {
-                Task editedTask = user.Tasks.Find(t => t.TaskID == postedTask.TaskID);
-                db.Entry(editedTask).CurrentValues.SetValues(postedTask);
-                db.SaveChanges();
-                return Ok(editedTask);
+                Task editedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
+                if (user.Boards(db).Contains(editedTask.Board))
+                {
+                    db.Entry(editedTask).CurrentValues.SetValues(postedTask);
+                    db.SaveChanges();
+                    return Ok(editedTask);
+                }
+                return StatusCode(HttpStatusCode.Unauthorized);
             }
             return StatusCode(HttpStatusCode.BadRequest);
         }

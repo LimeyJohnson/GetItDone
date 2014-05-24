@@ -52,10 +52,11 @@ export class TaskController {
             return true;
         };
         this.scope.addTask = function () {
-            var board = this.board;
+            var board:B.Board = this.board;
             $http.post("/api/Task/NewTask/" + board.BoardID, board.newTask).success(function (postedTask: T.Task) {
                 board.Tasks.push(postedTask);
-                board.newTask = {};
+                delete board.newTask;
+                board.collapseAll();
             }).error(function (callback) {
                     alert("error");
                 });

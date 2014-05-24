@@ -8,6 +8,14 @@ import board = require("board");
 export function accordion(): ng.IDirective {
          return {
              link: function (scope: board.BoardScope, element: JQuery, attr) {
+                 var taskList;
+                 if (element.closest) {
+                     //We don't always have the full jQuery
+                     taskList = element.closest("div[class*='tasklist']");
+                 }
+                 else {
+                     taskList = element.parent();
+                 } 
                  function update(event, ui) {
                      if (ui.sender) { //Only trigger for the last item
                          var taskID = ui.item.attr("task-id");
@@ -17,37 +25,35 @@ export function accordion(): ng.IDirective {
                          
                      }
                  }
+                 function activateFocus(event, ui: JQueryUI.AccordionUIParams) {
+                     if (ui.newPanel && ui.newPanel[0]) {
+                         taskList.scrollTop(ui.newPanel[0].scrollHeight);
+                     }
+                 }
                  function createAccordion() {
-
-                     if (element.parent().hasClass('ui-accordion')) {
-                         element.parent().accordion('refresh');
+                     if (taskList.hasClass('ui-accordion')) {
+                         taskList.accordion('refresh');
                      }
                      else {
-                         if (element.closest) {
-                             //We don't always have the full jQuery
-                             element.closest("div[class='tasklist']").accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false });
-                         }
-                         else {
-                             element.parent().accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false });
-                         }
+                         taskList.accordion({ collapsible: true, heightStyle: "content", header: "div > h3", active: false, activate: activateFocus });
                          jQuery(".tasklist").sortable({ connectWith: ".tasklist", update: update, forcePlaceholderSize: true, handle: 'h3' });
                      }
                      
+                 }
+                 scope.board.collapseAll = function () {
+                     element.closest("div[class='tasklist']").accordion("option", "active", false);
                  }
                  if (scope.task) {
                      element.attr("task-id", scope.task.TaskID);
                      element.find("h3").css("background", scope.$parent.board.ColorCode);
                      if (scope.$last) {
                          createAccordion();
-
-                        
                      }
                  }
                  else {
                      //this was called on a ne task item. Just run the create accordion command if it has
                      createAccordion();
                  }
-
         }
     }
     }

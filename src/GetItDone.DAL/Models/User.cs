@@ -27,9 +27,12 @@ namespace GetItDone.DAL.Models
         public DateTime Joined { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        public virtual List<Task> Tasks { get; set; }
 
-        public virtual List<Board> Boards { get; set; }
+        
+        public List<Board> Boards(GetItDoneContext db)
+        {
+            return (from ub in db.UserBoards.Include("Board") where ub.User.UserID == this.UserID select ub.Board).ToList<Board>();
+        }
 
     }
 

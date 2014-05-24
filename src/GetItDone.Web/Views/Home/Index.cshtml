@@ -34,6 +34,7 @@
                         Yesterday<input type="radio" ng-model="board.Filter" value="2" ng-change="updateBoard(board)" />
                         7<input type="radio" ng-model="board.Filter" value="7" ng-change="updateBoard(board)" />
                         30<input type="radio" ng-model="board.Filter" value="30" ng-change="updateBoard(board)" />
+                        All<input type="radio" ng-model="board.Filter" value="1000000" ng-change="updateBoard(board)" />
                     </div>
                     <div>
                         <input id="name" type="text" name="Name" ng-model="board.Name" /> <input type="button" value="Change" ng-click="updateBoard(board)" />
@@ -53,6 +54,9 @@
                                 </div>
                                 <div>
                                     {{ task.Details }}
+                                </div>
+                                <div ng-show="task.Schedule" >
+                                    {{ task.Schedule.Schedules }}
                                 </div>
                             </div>
                             <form id="todo-form" ng-submit="editTask(task)" ng-show="task.EditMode">
