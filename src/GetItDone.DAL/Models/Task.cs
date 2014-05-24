@@ -10,7 +10,6 @@ namespace GetItDone.DAL.Models
     {
         public Task()
         {
-
             Created = DateTime.Now;
         }
         [Key]
@@ -26,16 +25,13 @@ namespace GetItDone.DAL.Models
         [JsonIgnore]
         public virtual User Creator { get; set; }
         
-        [Required]
-        [Column(TypeName = "datetime2")]
+        [Required, Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
         
-        [Column(TypeName = "datetime2")]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
         public Nullable<DateTime> Due { get; set; }
         
-        [Column(TypeName = "datetime2")]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
         public Nullable<DateTime> Moved{ get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -44,6 +40,9 @@ namespace GetItDone.DAL.Models
         //How long the task is going to take in min
         public int Duration { get; set; }
 
+        public int BoardID { get; set; }
+        
+        [ForeignKey("BoardID")]
         public Board Board { get; set; }
 
         public void ChangeBoard(Board newBoard)
@@ -63,9 +62,5 @@ namespace GetItDone.DAL.Models
                 }
             }
         }
-    }
-    public class RecurringTask : Task
-    {
-        public TaskSchedule Schedule { get; set; }
     }
 }

@@ -19,11 +19,6 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if(user != null)
             {
-                //Make sure catagories are loaded
-                if (user.Boards == null) 
-                {
-                    db.Entry(user).Collection(u => u.Boards).Load();
-                }
                 return View(user);
             }
             

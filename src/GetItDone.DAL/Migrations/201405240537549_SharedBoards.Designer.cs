@@ -7,13 +7,13 @@ namespace GetItDone.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class RecurringTasks : IMigrationMetadata
+    public sealed partial class SharedBoards : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RecurringTasks));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SharedBoards));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405222222427_RecurringTasks"; }
+            get { return "201405240537549_SharedBoards"; }
         }
         
         string IMigrationMetadata.Source

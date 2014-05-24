@@ -28,7 +28,7 @@ namespace GetItDone.DAL.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [NotMapped]
+        
         public List<Board> Boards(GetItDoneContext db)
         {
             return (from ub in db.UserBoards.Include("Board") where ub.User.UserID == this.UserID select ub.Board).ToList<Board>();

@@ -14,15 +14,17 @@ namespace GetItDone.DAL.Models
         [Required]
         public string Name { get; set; }
         public string ColorCode { get; set; }
-        [Required]
-        [JsonIgnore]
-        public virtual User Owner { get; set; }
+
+        public int UserID { get; set; }
+        [Required,JsonIgnore, ForeignKey("UserID")]
+        public virtual User Creator { get; set; }
         /// <summary>
         /// If not null it will only show tasks that have a changed date less than today + Filter
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<int> Filter { get; set; }
 
+        
         public virtual List<Task> Tasks { get; set; }
 
     }

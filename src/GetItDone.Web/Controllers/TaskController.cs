@@ -59,11 +59,15 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Tasks).Load();
-                Task deletedTask = user.Tasks.Find(t => t.TaskID == id);
-                db.Tasks.Remove(deletedTask);
-                db.SaveChanges();
-                return StatusCode(HttpStatusCode.NoContent);
+
+                Task deletedTask = (from t in db.Tasks.Include("Board") where t.TaskID == id select t).FirstOrDefault<Task>();
+                if (user.Boards(db).Contains(deletedTask.Board))
+                {
+                    db.Tasks.Remove(deletedTask);
+                    db.SaveChanges();
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                return StatusCode(HttpStatusCode.Unauthorized);
             }
             return StatusCode(HttpStatusCode.BadRequest);
         }
@@ -72,19 +76,18 @@ namespace GetItDone.Web.Controllers
         {
             if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
-            db.Entry(user).Collection(u => u.Tasks).Load();
             if (user != null)
             {
+                postedTask.Board = (from c in db.Boards.Include("Tasks") where c.BoardID == id select c).FirstOrDefault<Board>();
                 //This request is to add a new task. New tasks can only be added to the backlog at the lowest priority
-                int? maxPriority = user.Tasks.Max(t => t.Priority);
+                int? maxPriority = postedTask.Board.Tasks.Max(t => t.Priority);
                 if (maxPriority.HasValue)
                 {
                     postedTask.Priority = maxPriority.Value + 1;
                 }
 
                 //Add in the board
-                postedTask.Board = (from c in db.Boards where c.BoardID == id select c).FirstOrDefault<Board>();
-                user.Tasks.Add(postedTask);
+                db.Tasks.Add(postedTask);
                 db.SaveChanges();
                 return Ok(postedTask);
             }
@@ -96,13 +99,17 @@ namespace GetItDone.Web.Controllers
         {
             if (postedTask == null) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
-            db.Entry(user).Collection(u => u.Tasks).Load();
+            
             if (user != null)
             {
-                Task editedTask = user.Tasks.Find(t => t.TaskID == postedTask.TaskID);
-                db.Entry(editedTask).CurrentValues.SetValues(postedTask);
-                db.SaveChanges();
-                return Ok(editedTask);
+                Task editedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
+                if (user.Boards(db).Contains(editedTask.Board))
+                {
+                    db.Entry(editedTask).CurrentValues.SetValues(postedTask);
+                    db.SaveChanges();
+                    return Ok(editedTask);
+                }
+                return StatusCode(HttpStatusCode.Unauthorized);
             }
             return StatusCode(HttpStatusCode.BadRequest);
         }

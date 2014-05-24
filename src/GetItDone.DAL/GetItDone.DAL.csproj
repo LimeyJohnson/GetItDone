@@ -111,17 +111,15 @@
     <Compile Include="Migrations\201405070242169_TaskSchedule.Designer.cs">
       <DependentUpon>201405070242169_TaskSchedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405222222427_RecurringTasks.cs" />
-    <Compile Include="Migrations\201405222222427_RecurringTasks.Designer.cs">
-      <DependentUpon>201405222222427_RecurringTasks.cs</DependentUpon>
+    <Compile Include="Migrations\201405240537549_SharedBoards.cs" />
+    <Compile Include="Migrations\201405240537549_SharedBoards.Designer.cs">
+      <DependentUpon>201405240537549_SharedBoards.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserBoards.cs" />
     <Compile Include="Models\GetItDoneContext.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Board.cs" />
-    <Compile Include="Models\Schedules.cs" />
-    <Compile Include="Models\TaskSchedules.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,8 +178,8 @@
     <EmbeddedResource Include="Migrations\201405070242169_TaskSchedule.resx">
       <DependentUpon>201405070242169_TaskSchedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405222222427_RecurringTasks.resx">
-      <DependentUpon>201405222222427_RecurringTasks.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405240537549_SharedBoards.resx">
+      <DependentUpon>201405240537549_SharedBoards.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

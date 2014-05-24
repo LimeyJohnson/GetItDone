@@ -13,15 +13,20 @@ namespace GetItDone.Web.Controllers
 
         // GET api/Board/GetTaskList/id
         [HttpGet]
-        public IEnumerable<Task> GetTaskList(int id)
+        public IHttpActionResult GetTaskList(int id)
         {
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                var userTasks = (from u in db.Users.Include("Tasks").Include("Tasks.Board") where u.UserID == user.UserID select u).FirstOrDefault<User>();
-                return userTasks.Tasks.Where(t => t.Board.BoardID == id).Where(t => t.Visible).OrderBy(t => t.Priority);
+                Board board = user.Boards(db).Where(b=>b.BoardID == id).FirstOrDefault<Board>();
+                if(board != null)
+                {
+                    List<Task> returnList = (from t in db.Tasks where t.BoardID == board.BoardID select t).ToList<Task>();
+                    return Ok(returnList);
+                }
+                return StatusCode(HttpStatusCode.Unauthorized);
             }
-            return null;
+            return StatusCode(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
@@ -30,8 +35,8 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Boards).Load();
-                Board existingBoard = user.Boards.Find(b => b.BoardID == board.BoardID);
+                
+                Board existingBoard = user.Boards(db).Find(b => b.BoardID == board.BoardID);
                 if (existingBoard == null) { return StatusCode(HttpStatusCode.BadRequest); }
                 db.Entry(existingBoard).CurrentValues.SetValues(board);
                 db.SaveChanges();
@@ -46,8 +51,8 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                db.Entry(user).Collection(u => u.Boards).Load();
-                Board deletedBoard = user.Boards.Find(b => b.BoardID == id);
+                
+                Board deletedBoard = user.Boards(db).Find(b => b.BoardID == id);
                 db.Entry(deletedBoard).Collection(b => b.Tasks).Load();
                 if (deletedBoard.Tasks.Count == 0)
                 {
@@ -63,11 +68,13 @@ namespace GetItDone.Web.Controllers
         {
             if (postedBoard == null) return StatusCode(HttpStatusCode.BadRequest);
             User user = CookieHelper.LoggedInUser(Request, db);
-            db.Entry(user).Collection(u => u.Boards).Load();
             if (user != null)
             {
-                postedBoard.Owner = user;
-                user.Boards.Add(postedBoard);
+                postedBoard.Creator = user;
+                db.Boards.Add(postedBoard);
+
+                UserBoard link = new UserBoard() { Board = postedBoard, User = user };
+                db.UserBoards.Add(link);
                 db.SaveChanges();
                 return Ok(postedBoard);
             }

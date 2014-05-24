@@ -9,11 +9,13 @@ namespace GetItDone.DAL.Models
    
     public class UserBoard
     {
-        [Key]
-        public int UserBoardID { get; set; }
-
+        [Key, Column(Order=0)]
+        public int UserID { get; set; }
+        [Key, Column(Order = 1)]
+        public int BoardID { get; set; }
+        [ForeignKey("UserID")]
         public User User { get; set; }
-
+        [ForeignKey("BoardID")]
         public Board Board { get; set; }
     }
 }
