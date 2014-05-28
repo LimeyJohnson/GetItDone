@@ -1,3 +1,4 @@
+
 /// <reference path="./task.ts" />
 /// <reference path="./app.ts" />
 /// <reference path="./typings/angularjs/angular.d.ts" />
@@ -51,11 +52,11 @@ export class TaskController {
             }
             return true;
         };
-        this.scope.addTask = function () {
-            var board:B.Board = this.board;
-            $http.post("/api/Task/NewTask/" + board.BoardID, board.newTask).success(function (postedTask: T.Task) {
+        this.scope.addNewTask = function (board: B.Board) {
+            var newTask = { Name: "New Task" };
+                
+            $http.post("/api/Task/NewTask/" + board.BoardID, newTask).success(function (postedTask: T.Task) {
                 board.Tasks.push(postedTask);
-                delete board.newTask;
                 board.collapseAll();
             }).error(function (callback) {
                     alert("error");
