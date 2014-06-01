@@ -8,7 +8,7 @@ export class Board {
     Tasks: T.Task[];
     Filter: number;
     Menu: boolean;
-    collapseAll: () => any;
+    selectLast: () => any;
 } 
 
 export interface BoardScope extends ng.IScope{
@@ -23,7 +23,6 @@ export interface BoardScope extends ng.IScope{
     editTask: (task: T.Task) => any;
     deleteBoard: (board: Board) => any;
     createBoard: () => any;
-
     newBoard: Board;
     taskEdit: number;
     name: string;

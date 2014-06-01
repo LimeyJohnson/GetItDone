@@ -11,8 +11,8 @@ export class TaskController {
     private httpService: ng.IHttpService;
     private scope: B.BoardScope;
     private $parent: any;
-    public static $inject = ['$scope', '$location', '$http'];
-    constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService) {
+    public static $inject = ['$scope', '$location', '$http','$timeout'];
+    constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService) {
         this.httpService = $http;
         this.scope = $scope;
 
@@ -56,8 +56,10 @@ export class TaskController {
             var newTask = { Name: "New Task" };
                 
             $http.post("/api/Task/NewTask/" + board.BoardID, newTask).success(function (postedTask: T.Task) {
+                postedTask.EditMode = true;
                 board.Tasks.push(postedTask);
-                board.collapseAll();
+                $timeout(function () { board.selectLast(); }, 0, false);
+
             }).error(function (callback) {
                     alert("error");
                 });
