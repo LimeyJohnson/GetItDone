@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>0.9</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptModuleKind>amd</TypeScriptModuleKind>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
@@ -185,6 +185,7 @@
     <Content Include="Images\deleteicon.png" />
     <Content Include="Images\editicon.png" />
     <Content Include="Images\menuicon.png" />
+    <Content Include="Images\plusicon.png" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AppConfig.js" />

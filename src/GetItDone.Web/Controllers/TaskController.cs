@@ -1,5 +1,6 @@
 ﻿using GetItDone.DAL;
 using GetItDone.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -85,7 +86,8 @@ namespace GetItDone.Web.Controllers
                 {
                     postedTask.Priority = maxPriority.Value + 1;
                 }
-
+                postedTask.Created = DateTime.Now;
+                postedTask.Creator = user;
                 //Add in the board
                 db.Tasks.Add(postedTask);
                 db.SaveChanges();

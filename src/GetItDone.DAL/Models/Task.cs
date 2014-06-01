@@ -21,8 +21,7 @@ namespace GetItDone.DAL.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Details { get; set; }
         
-        [Required]
-        [JsonIgnore]
+        [Required,JsonIgnore]
         public virtual User Creator { get; set; }
         
         [Required, Column(TypeName = "datetime2")]

@@ -22,6 +22,7 @@
         <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" set-board-id ng-cloak>
             <div>
                 <h2>{{ board.Name }} ({{ board.Tasks.length }})</h2>
+                <img src="~/Images/plusicon.png" ng-click="addNewTask(board)" class="add"/>
                 <img src="~/Images/menuicon.png" ng-click="board.Menu = !board.Menu" class="menu" />
             </div>
             <div>
@@ -68,27 +69,6 @@
                                     <br />
                                     <textarea id="details" rows="2" name="Details" cols="20" ng-model="task.Details"></textarea>
                                     <input id="updatetask" type="submit" value="Update Task" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div accordion>
-                        <h3>New Task</h3>
-                        <div class="taskdiv">
-                            <form id="todo-form" ng-submit="addTask()">
-                                <h3>New</h3>
-                                <div>
-                                    Name<br />
-                                    <input id="name" type="text" name="Name" ng-model="board.newTask.Name" />
-                                    <br />
-                                    Details
-                                    <br />
-                                    <textarea id="details" rows="2" name="Details" cols="20" ng-model="board.newTask.Details"></textarea>
-                                    <br />
-                                    Catagory
-                                    <br />
-                                    <br />
-                                    <input id="puttask" type="submit" value="Create Task" />
                                 </div>
                             </form>
                         </div>
