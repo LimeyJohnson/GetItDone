@@ -115,8 +115,13 @@
     <Compile Include="Migrations\201405240537549_SharedBoards.Designer.cs">
       <DependentUpon>201405240537549_SharedBoards.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406030452027_PlayLists.cs" />
+    <Compile Include="Migrations\201406030452027_PlayLists.Designer.cs">
+      <DependentUpon>201406030452027_PlayLists.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\UserBoards.cs" />
+    <Compile Include="Models\PlayList.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="Models\GetItDoneContext.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Board.cs" />
@@ -180,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405240537549_SharedBoards.resx">
       <DependentUpon>201405240537549_SharedBoards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406030452027_PlayLists.resx">
+      <DependentUpon>201406030452027_PlayLists.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

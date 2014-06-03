@@ -26,6 +26,6 @@ namespace GetItDone.DAL.Models
 
         
         public virtual List<Task> Tasks { get; set; }
-
+        public virtual List<User> BoardUsers { get; set; } 
     }
 }
