@@ -106,6 +106,7 @@ namespace GetItDone.Web.Controllers
             if (user != null)
             {
                 Task editedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
+                db.Entry(user).Collection(u => u.Boards).Load();
                 if (user.Boards.Contains(editedTask.Board))
                 {
                     db.Entry(editedTask).CurrentValues.SetValues(postedTask);
