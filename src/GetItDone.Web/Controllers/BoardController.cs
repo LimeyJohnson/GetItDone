@@ -18,7 +18,8 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                Board board = user.Boards(db).Where(b=>b.BoardID == id).FirstOrDefault<Board>();
+                db.Entry(user).Collection(u => u.Boards).Load();
+                Board board = user.Boards.Where(b=>b.BoardID == id).FirstOrDefault<Board>();
                 if(board != null)
                 {
                     List<Task> returnList = (from t in db.Tasks where t.BoardID == board.BoardID select t).ToList<Task>();
@@ -36,7 +37,7 @@ namespace GetItDone.Web.Controllers
             if (user != null)
             {
                 
-                Board existingBoard = user.Boards(db).Find(b => b.BoardID == board.BoardID);
+                Board existingBoard = user.Boards.Find(b => b.BoardID == board.BoardID);
                 if (existingBoard == null) { return StatusCode(HttpStatusCode.BadRequest); }
                 db.Entry(existingBoard).CurrentValues.SetValues(board);
                 db.SaveChanges();
@@ -52,7 +53,7 @@ namespace GetItDone.Web.Controllers
             if (user != null)
             {
                 
-                Board deletedBoard = user.Boards(db).Find(b => b.BoardID == id);
+                Board deletedBoard = user.Boards.Find(b => b.BoardID == id);
                 db.Entry(deletedBoard).Collection(b => b.Tasks).Load();
                 if (deletedBoard.Tasks.Count == 0)
                 {
@@ -72,9 +73,6 @@ namespace GetItDone.Web.Controllers
             {
                 postedBoard.Creator = user;
                 db.Boards.Add(postedBoard);
-
-                UserBoard link = new UserBoard() { Board = postedBoard, User = user };
-                db.UserBoards.Add(link);
                 db.SaveChanges();
                 return Ok(postedBoard);
             }

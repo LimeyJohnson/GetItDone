@@ -20,7 +20,8 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-                return user.Boards(db);
+                db.Entry(user).Collection(u => u.Boards).Load();
+                return user.Boards;
             }
             return null;
         }
@@ -40,8 +41,8 @@ namespace GetItDone.Web.Controllers
                 Task movedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
                 //We need to verify that they have access to the board that the task came from, and we need to verify they have access to the board it came from
 
-                Board newBoard = user.Boards(db).Find(b => b.BoardID == id);
-                if (newBoard != null && user.Boards(db).Contains(movedTask.Board))
+                Board newBoard = user.Boards.Find(b => b.BoardID == id);
+                if (newBoard != null && user.Boards.Contains(movedTask.Board))
                 {
                     movedTask.ChangeBoard(newBoard);
                     db.SaveChanges();
@@ -62,7 +63,7 @@ namespace GetItDone.Web.Controllers
             {
 
                 Task deletedTask = (from t in db.Tasks.Include("Board") where t.TaskID == id select t).FirstOrDefault<Task>();
-                if (user.Boards(db).Contains(deletedTask.Board))
+                if (user.Boards.Contains(deletedTask.Board))
                 {
                     db.Tasks.Remove(deletedTask);
                     db.SaveChanges();
@@ -105,7 +106,7 @@ namespace GetItDone.Web.Controllers
             if (user != null)
             {
                 Task editedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
-                if (user.Boards(db).Contains(editedTask.Board))
+                if (user.Boards.Contains(editedTask.Board))
                 {
                     db.Entry(editedTask).CurrentValues.SetValues(postedTask);
                     db.SaveChanges();

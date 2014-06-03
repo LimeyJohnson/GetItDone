@@ -28,10 +28,17 @@ namespace GetItDone.DAL.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        
-        public List<Board> Boards(GetItDoneContext db)
+
+        #region Playlist
+
+        public virtual List<PlayList> PlayLists { get; set; }
+
+        #endregion
+
+        public virtual List<Board> Boards
         {
-            return (from ub in db.UserBoards.Include("Board") where ub.User.UserID == this.UserID select ub.Board).ToList<Board>();
+            get;
+            set;
         }
 
     }
