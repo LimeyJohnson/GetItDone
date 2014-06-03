@@ -40,7 +40,7 @@ namespace GetItDone.Web.Controllers
             {
                 Task movedTask = (from t in db.Tasks.Include("Board") where t.TaskID == postedTask.TaskID select t).FirstOrDefault<Task>();
                 //We need to verify that they have access to the board that the task came from, and we need to verify they have access to the board it came from
-
+                db.Entry(user).Collection(u => u.Boards).Load();
                 Board newBoard = user.Boards.Find(b => b.BoardID == id);
                 if (newBoard != null && user.Boards.Contains(movedTask.Board))
                 {
@@ -61,7 +61,7 @@ namespace GetItDone.Web.Controllers
             User user = CookieHelper.LoggedInUser(Request, db);
             if (user != null)
             {
-
+                db.Entry(user).Collection(u => u.Boards).Load();
                 Task deletedTask = (from t in db.Tasks.Include("Board") where t.TaskID == id select t).FirstOrDefault<Task>();
                 if (user.Boards.Contains(deletedTask.Board))
                 {
