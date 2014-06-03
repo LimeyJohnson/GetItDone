@@ -11,7 +11,13 @@ namespace GetItDone.DAL.Migrations
     {
         public Configuration()
         {
+#if DEBUG
             AutomaticMigrationsEnabled = false;
+#else
+            AutomaticMigrationsEnabled = true;
+#endif
+
+
         }
 
         protected override void Seed(GetItDone.DAL.GetItDoneContext context)
