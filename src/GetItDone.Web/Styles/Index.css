@@ -45,6 +45,18 @@
     clear: both;
 }
 
+.addtrack{
+     width: 35px;
+    position: relative;
+    float: right;
+    margin-bottom: 49px;
+    margin-right: 39px;
+}
+
+.newtracklist {
+    margin-bottom: 49px;
+}
+
 @media only screen and (max-width: 800px) {
     .taskcontainer {
         max-width: 400px;
