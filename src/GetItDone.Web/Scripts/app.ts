@@ -1,9 +1,9 @@
 /// <reference path="directives.ts" />
-/// <reference path="taskcontroller.ts" />
+/// <reference path="todocontroller.ts" />
 import angular = require("angular");
 import directives = require("directives");
-import TCntrl = require("taskcontroller");
+import TCntrl = require("todocontroller");
 
 'use strict';
 
-export var app = angular.module('todomvc', []).controller("TaskController", TCntrl.TaskController).directive("accordion", directives.accordion).directive("setBoardId", directives.setBoardId);
+export var app = angular.module('todomvc', []).controller("TodoController", TCntrl.TodoController).directive("accordion", directives.accordion).directive("setBoardId", directives.setBoardId);

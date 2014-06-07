@@ -8,7 +8,7 @@
 *.map
 Index.js
 directives.js
-Taskcontroller.js
+todocontroller.js
 app.js
 task.js
 board.js

@@ -203,7 +203,7 @@
     <Compile Include="Controllers\CookieHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
-    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TodoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,7 +237,7 @@
     <TypeScriptCompile Include="Scripts\board.ts" />
     <TypeScriptCompile Include="Scripts\taskschedule.ts" />
     <TypeScriptCompile Include="Scripts\task.ts" />
-    <TypeScriptCompile Include="Scripts\taskcontroller.ts" />
+    <TypeScriptCompile Include="Scripts\todocontroller.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />

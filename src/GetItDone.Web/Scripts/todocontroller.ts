@@ -7,7 +7,7 @@ import T = require("./task");
 import B = require("./board");
 'use strict';
 require("app");
-export class TaskController {
+export class TodoController {
     private httpService: ng.IHttpService;
     private scope: B.BoardScope;
     private $parent: any;
@@ -30,7 +30,7 @@ export class TaskController {
                     }
                 }
             }
-            $http.post("/api/Task/MoveTask/" + boardID, originalTask).success(function (updatedTask) {
+            $http.post("/api/Todo/MoveTask/" + boardID, originalTask).success(function (updatedTask) {
                 setTimeout(function () {
                     $scope.$apply(function () {
                         newBoard.Tasks.push(updatedTask);
@@ -55,7 +55,7 @@ export class TaskController {
         this.scope.addNewTask = function (board: B.Board) {
             var newTask = { Name: "New Task" };
                 
-            $http.post("/api/Task/NewTask/" + board.BoardID, newTask).success(function (postedTask: T.Task) {
+            $http.post("/api/Todo/NewTask/" + board.BoardID, newTask).success(function (postedTask: T.Task) {
                 postedTask.EditMode = true;
                 board.Tasks.push(postedTask);
                 $timeout(function () { board.selectLast(); }, 0, false);
@@ -65,18 +65,18 @@ export class TaskController {
                 });
         };
         this.scope.deleteTask = function (task: T.Task, board: B.Board) {
-            $http.delete("/api/Task/DeleteTask/" + task.TaskID).success(function (callback) {
+            $http.delete("/api/Todo/DeleteTask/" + task.TaskID).success(function (callback) {
                 board.Tasks.splice(board.Tasks.indexOf(task), 1);
             });
         };
         this.scope.updateBoard = function (board: B.Board) {
-            $http.post("/api/Board/Update", board).success(function (data: B.Board) {
+            $http.post("/api/Todo/UpdateBoard", board).success(function (data: B.Board) {
                 $scope.refreshBoard(board);
 
             });
         };
         this.scope.refreshBoard = function (board: B.Board) {
-            $http.get("/api/Board/GetTaskList/" + board.BoardID).success(function (tl, status2) {
+            $http.get("/api/Todo/GetTaskList/" + board.BoardID).success(function (tl, status2) {
                 board.Tasks = tl;
             });
         }
@@ -86,7 +86,7 @@ export class TaskController {
             }
         }
         this.scope.refreshBoards = function (scope: B.BoardScope) {
-            $http.get("/api/Task/Boards/").success((data: B.Board[], status) => {
+            $http.get("/api/Todo/Boards/").success((data: B.Board[], status) => {
                 scope.boards = data;
 
                 $scope.refeshBoardTasks(scope);
@@ -97,14 +97,14 @@ export class TaskController {
             task.EditMode = true;
         }
         this.scope.editTask = function (task: T.Task) {
-            $http.post("/api/Task/Update/", task).success(function (data) {
+            $http.post("/api/Todo/UpdateTask/", task).success(function (data) {
                 task = data;
             });
             task.EditMode = false;
         }
 
         this.scope.deleteBoard = function (board: B.Board) {
-            $http.delete("/api/Board/DeleteBoard/" + board.BoardID).success(function (callback) {
+            $http.delete("/api/Todo/DeleteBoard/" + board.BoardID).success(function (callback) {
                 $scope.boards.splice($scope.boards.indexOf(board), 1);
             });
         }
@@ -112,7 +112,7 @@ export class TaskController {
 
 
         this.scope.createBoard = function () {
-            $http.post("/api/Board/NewBoard/", $scope.newBoard).success(function (postedBoard: B.Board) {
+            $http.post("/api/Todo/NewBoard/", $scope.newBoard).success(function (postedBoard: B.Board) {
                 $scope.boards.push(postedBoard);
                 $scope.newBoard = null;
             }).error(function (callback) {
