@@ -51,8 +51,12 @@
                                     <a ng-click="setTaskEditable(task)"><img class="edit" src="~/Images/editicon.png" /></a>
                                 </div>
                                 <div id="createdDate">
-                                    {{ task.Created | date: short }}
+                                    Created: {{ task.Created | date:'EEE M/d/yy' }}
                                 </div>
+                                <div ng-show="task.Due">
+                                    Due : {{ task.Due | date:'EEE M/d/yy' }}
+                                </div>
+                                <br/>
                                 <div>
                                     {{ task.Details }}
                                 </div>
@@ -64,6 +68,10 @@
                                 <div>
                                     Name<br />
                                     <input id="name" type="text" name="Name" ng-model="task.Name" />
+                                    <br/>
+                                    Due
+                                    <br/>
+                                    <input ui-date ng-model="task.Due" />
                                     <br />
                                     Details
                                     <br />
