@@ -4,8 +4,8 @@ export class Task {
     TaskID: number;
     Name: string;
     Details: string;
-    Created: Date;
-    Due: Date;
+    Created: any;
+    Due: any;
     Completed: Date;
     Priority: number;
     //How long the task is going to take in min

@@ -11,7 +11,21 @@ export class TodoController {
     private httpService: ng.IHttpService;
     private scope: B.BoardScope;
     private $parent: any;
-    public static $inject = ['$scope', '$location', '$http','$timeout'];
+    public static $inject = ['$scope', '$location', '$http', '$timeout'];
+
+    public static convertDateStringsToDates(tasklist:T.Task[]) {
+        if (Array.isArray(tasklist)) {
+            tasklist.forEach(function (task: T.Task, index: number, tasklist: T.Task[]) {
+                if (!(task.Due instanceof Date)) {
+                    task.Due = new Date(task.Due);
+                }
+                if (!(task.Due instanceof Date)) {
+                    task.Created = new Date(task.Created);
+                }
+            });
+        }
+    }
+        
     constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService) {
         this.httpService = $http;
         this.scope = $scope;
@@ -80,7 +94,8 @@ export class TodoController {
             if (!board.Tasks || board.Tasks.filter(function (task, index) {
                 return task.EditMode;
             }).length == 0) {
-                $http.get("/api/Todo/GetTaskList/" + board.BoardID).success(function (tl, status2) {
+                $http.get("/api/Todo/GetTaskList/" + board.BoardID).success(function (tl: T.Task[], status2) {
+                    TodoController.convertDateStringsToDates(tl);
                     board.Tasks = tl;
                 });
             }

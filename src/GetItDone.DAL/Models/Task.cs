@@ -28,7 +28,7 @@ namespace GetItDone.DAL.Models
         [Required, Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
 
-        [JsonConverter(typeof(JavaScriptDateTimeConverter)),JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
         public Nullable<DateTime> Due { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
