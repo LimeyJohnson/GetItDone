@@ -131,7 +131,7 @@ namespace GetItDone.Web.Controllers
                 if (board != null)
                 {
                     List<Task> returnList = (from t in db.Tasks where t.BoardID == board.BoardID select t).ToList<Task>();
-                    return Ok(returnList);
+                    return Ok(returnList.Where(t=>t.Visible));
                 }
                 return StatusCode(HttpStatusCode.Unauthorized);
             }

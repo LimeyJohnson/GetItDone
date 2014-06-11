@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GetItDone.DAL.Models
 {
-    
+
     public class Task
     {
         public Task()
@@ -14,33 +14,33 @@ namespace GetItDone.DAL.Models
         }
         [Key]
         public int TaskID { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Details { get; set; }
-        
-        [Required,JsonIgnore]
+
+        [Required, JsonIgnore]
         public virtual User Creator { get; set; }
-        
+
         [Required, Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
-        
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
         public Nullable<DateTime> Due { get; set; }
-        
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
-        public Nullable<DateTime> Moved{ get; set; }
+        public Nullable<DateTime> Moved { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Nullable<int> Priority { get; set; }
-       
+
         //How long the task is going to take in min
         public int Duration { get; set; }
 
         public int BoardID { get; set; }
-        
+
         [ForeignKey("BoardID")]
         public Board Board { get; set; }
 
@@ -57,7 +57,14 @@ namespace GetItDone.DAL.Models
                 if (Board == null || Board.Filter == null || Moved == null) { return true; }
                 else
                 {
-                    return Moved.Value > DateTime.Now.AddDays(Board.Filter.Value * -1);
+                    try
+                    {
+                        return Moved.Value>DateTime.Today.AddDays(Board.Filter.Value * -1);
+                    }
+                    catch (System.ArgumentOutOfRangeException)
+                    {
+                        return true;
+                    }
                 }
             }
         }

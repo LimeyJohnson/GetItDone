@@ -72,7 +72,6 @@ export class TodoController {
         this.scope.updateBoard = function (board: B.Board) {
             $http.post("/api/Todo/UpdateBoard", board).success(function (data: B.Board) {
                 $scope.refreshBoard(board);
-
             });
         };
         this.scope.refreshBoard = function (board: B.Board) {

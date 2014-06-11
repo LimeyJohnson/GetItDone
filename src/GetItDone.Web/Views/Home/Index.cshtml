@@ -31,11 +31,11 @@
                         <a ng-click="deleteBoard(board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
                     </div>
                     <div>
-                        Today<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
-                        Yesterday<input type="radio" ng-model="board.Filter" value="2" ng-change="updateBoard(board)" />
-                        7<input type="radio" ng-model="board.Filter" value="7" ng-change="updateBoard(board)" />
-                        30<input type="radio" ng-model="board.Filter" value="30" ng-change="updateBoard(board)" />
-                        All<input type="radio" ng-model="board.Filter" value="1000000" ng-change="updateBoard(board)" />
+                        Today<input type="radio" ng-model="board.Filter" value="0" ng-change="updateBoard(board)" />
+                        Yesterday<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
+                        7<input type="radio" ng-model="board.Filter" value="6" ng-change="updateBoard(board)" />
+                        30<input type="radio" ng-model="board.Filter" value="29" ng-change="updateBoard(board)" />
+                        All<input type="radio" ng-model="board.Filter" value="" ng-change="updateBoard(board)" />
                     </div>
                     <div>
                         <input id="name" type="text" name="Name" ng-model="board.Name" /> <input type="button" value="Change" ng-click="updateBoard(board)" />
