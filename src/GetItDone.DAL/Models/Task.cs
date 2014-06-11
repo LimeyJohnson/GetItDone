@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +28,7 @@ namespace GetItDone.DAL.Models
         [Required, Column(TypeName = "datetime2")]
         public DateTime Created { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
+        [JsonConverter(typeof(JavaScriptDateTimeConverter)),JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]
         public Nullable<DateTime> Due { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore), Column(TypeName = "datetime2")]

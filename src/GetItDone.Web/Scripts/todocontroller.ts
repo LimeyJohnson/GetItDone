@@ -75,9 +75,15 @@ export class TodoController {
             });
         };
         this.scope.refreshBoard = function (board: B.Board) {
-            $http.get("/api/Todo/GetTaskList/" + board.BoardID).success(function (tl, status2) {
-                board.Tasks = tl;
-            });
+
+            //Only do this if no tasks are currently being edited or if we have no tasks
+            if (!board.Tasks || board.Tasks.filter(function (task, index) {
+                return task.EditMode;
+            }).length == 0) {
+                $http.get("/api/Todo/GetTaskList/" + board.BoardID).success(function (tl, status2) {
+                    board.Tasks = tl;
+                });
+            }
         }
         this.scope.refeshBoardTasks = function (scope: B.BoardScope) {
             for (var x = 0; x < scope.boards.length; x++) {
