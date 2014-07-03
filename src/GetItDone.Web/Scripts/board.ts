@@ -8,7 +8,6 @@ export class Board {
     Tasks: T.Task[];
     Filter: number;
     Menu: boolean;
-    selectLast: () => any;
 } 
 
 export interface BoardScope extends ng.IScope{
@@ -24,10 +23,10 @@ export interface BoardScope extends ng.IScope{
     deleteBoard: (board: Board) => any;
     createBoard: () => any;
     newBoard: Board;
-    taskEdit: number;
     name: string;
     details: string;
     addNewTask: any;
+    dialogTask: T.Task;
     task: T.Task; // Current task when scope is used in child scope context.
     $parent: BoardScope;
     board: Board;

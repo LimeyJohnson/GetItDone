@@ -2,25 +2,23 @@
 require.config({
     baseUrl: '/Scripts',
     paths: {
-        jquery: "jquery-2.1.0.min",
-        jqueryUI: "jquery-ui-1.10.4.min",
+        jquery: "jquery-2.1.1.min",
         angular: "angular.min"
         
     },
     shim: {
-        jqueryUI: {
-            deps: ["jquery"],
+        jquery: {
             exports: "$"
         },
         angular: {
-            deps: ["jquery", "jqueryUI"],
+            deps: ["jquery"],
             exports: 'angular'
         }
         
     }
 });
 
-require(['angular', 'app', "jqueryUI",'uidate'], function (angular) {
+require(['angular', 'app', "jquery"], function (angular) {
     // code from window.onload
     angular.bootstrap(document, ['todomvc']);
 });

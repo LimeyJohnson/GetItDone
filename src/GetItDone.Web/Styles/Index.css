@@ -39,7 +39,10 @@
 .newboard {
     margin-left:35px;
 }
-
+.dialog {
+    width: 500px;
+    height: 600px;
+}
 #createdDate {
     clear: both;
 }

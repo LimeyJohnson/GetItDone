@@ -29,7 +29,7 @@ export class TodoController {
     constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService) {
         this.httpService = $http;
         this.scope = $scope;
-
+        this.scope.dialogTask = null;
         this.scope.taskMoved = function (taskID: number, boardID: number) {
             var originalBoard: B.Board, originalTask: T.Task, newBoard: B.Board;
 
@@ -72,7 +72,6 @@ export class TodoController {
             $http.post("/api/Todo/NewTask/" + board.BoardID, newTask).success(function (postedTask: T.Task) {
                 postedTask.EditMode = true;
                 board.Tasks.push(postedTask);
-                $timeout(function () { board.selectLast(); }, 0, false);
 
             }).error(function (callback) {
                     alert("error");
@@ -112,7 +111,6 @@ export class TodoController {
                 $scope.refeshBoardTasks(scope);
             });
         }
-
         this.scope.setTaskEditable = function (task: T.Task) {
             task.EditMode = true;
         }
@@ -122,15 +120,12 @@ export class TodoController {
             });
             task.EditMode = false;
         }
-
         this.scope.deleteBoard = function (board: B.Board) {
             $http.delete("/api/Todo/DeleteBoard/" + board.BoardID).success(function (callback) {
                 $scope.boards.splice($scope.boards.indexOf(board), 1);
             });
         }
         this.scope.refreshBoards(this.scope);
-
-
         this.scope.createBoard = function () {
             $http.post("/api/Todo/NewBoard/", $scope.newBoard).success(function (postedBoard: B.Board) {
                 $scope.boards.push(postedBoard);
