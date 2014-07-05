@@ -3,8 +3,8 @@ require.config({
     baseUrl: '/Scripts',
     paths: {
         jquery: "jquery-2.1.1.min",
-        angular: "angular.min"
-        
+        angular: "angular.min",
+        angularbootstrap: "angular-ui/ui-bootstrap-tpls",
     },
     shim: {
         jquery: {
@@ -13,12 +13,15 @@ require.config({
         angular: {
             deps: ["jquery"],
             exports: 'angular'
+        },
+        angularbootstrap: {
+            deps: ['angular']
         }
         
     }
 });
 
-require(['angular', 'app', "jquery"], function (angular) {
+require(['angular', 'app', "jquery", "angularbootstrap"], function (angular) {
     // code from window.onload
     angular.bootstrap(document, ['todomvc']);
 });

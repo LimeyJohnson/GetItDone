@@ -124,6 +124,10 @@
     <Content Include="Images\editicon.png" />
     <Content Include="Images\menuicon.png" />
     <Content Include="Images\plusicon.png" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AppConfig.js" />
@@ -131,6 +135,7 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\Index.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -177,6 +182,7 @@
     <TypeScriptCompile Include="Scripts\taskschedule.ts" />
     <TypeScriptCompile Include="Scripts\task.ts" />
     <TypeScriptCompile Include="Scripts\todocontroller.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />

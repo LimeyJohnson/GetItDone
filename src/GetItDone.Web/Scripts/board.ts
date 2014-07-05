@@ -30,7 +30,7 @@ export interface BoardScope extends ng.IScope{
     task: T.Task; // Current task when scope is used in child scope context.
     $parent: BoardScope;
     board: Board;
-
+    openModal: (task: T.Task) => any;
     TaskEquals: (a: T.Task, b: T.Task) => boolean;
     TaskListEquals: (a: T.Task[], b: T.Task[]) => boolean;
 }

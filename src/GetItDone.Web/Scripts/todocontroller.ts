@@ -1,4 +1,5 @@
 
+/// <reference path="typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
 /// <reference path="./task.ts" />
 /// <reference path="./app.ts" />
 /// <reference path="./typings/angularjs/angular.d.ts" />
@@ -11,7 +12,7 @@ export class TodoController {
     private httpService: ng.IHttpService;
     private scope: B.BoardScope;
     private $parent: any;
-    public static $inject = ['$scope', '$location', '$http', '$timeout'];
+    public static $inject = ['$scope', '$location', '$http', '$timeout', '$modal'];
 
     public static convertDateStringsToDates(tasklist:T.Task[]) {
         if (Array.isArray(tasklist)) {
@@ -26,7 +27,7 @@ export class TodoController {
         }
     }
         
-    constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService) {
+    constructor($scope: B.BoardScope, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService, $modal: ng.ui.bootstrap.IModalService) {
         this.httpService = $http;
         this.scope = $scope;
         this.scope.dialogTask = null;
@@ -138,6 +139,14 @@ export class TodoController {
         setInterval(function () {
             $scope.refeshBoardTasks($scope);
         }, 60000);
+
+        this.scope.openModal = function (task: T.Task) {
+            $scope.dialogTask = task;
+            var modalInstance = $modal.open({
+                templateUrl: "modaldialog.html",
+               scope: $scope
+            });
+        }
     }
 
 

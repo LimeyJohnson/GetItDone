@@ -9,15 +9,14 @@
     <title>GetITDone</title>
     <link href="~/Styles/Index.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="todomvc" ng-controller="TodoController">
         <div class="newboard">
-
             <input type="text" ng-model="newBoard.Name" />
             <input type="button" ng-click="createBoard()" value="Create Board" />
-
         </div>
         <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" board-id="{{ board.BoardID }}" ng-cloak>
             <div>
@@ -43,14 +42,29 @@
                 </div>
                 <div ng-hide="board.Menu" class="tasklist">
                     <div ng-repeat="task in board.Tasks" ng-cloak task-id="{{ task.TaskID }}">
-                        {{ task.Name }}
+                        <a href="" ng-click="openModal(task)">{{ task.Name }}</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div ng-model="dialogTask" class="dialog">
-            {{ dialogTask.Name }}
-        </div>
+        <script type="text/ng-template" id="modaldialog.html">
+            <div>
+                {{ dialogTask.Name }}
+                <a ng-click="deleteTask(dialogTask, board)"><img class="delete" src="Images/deleteicon.png" /></a>
+                <a ng-click="setTaskEditable(dialogTask)"><img class="edit" src="Images/editicon.png" /></a>
+            </div>
+            <div id="createdDate">
+                Created: {{ dialogTask.Created | date:'EEE M/d/yy' }}
+            </div>
+            <div ng-show="dialogTask.Due">
+                Due : {{ dialogTask.Due | date:'EEE M/d/yy' }}
+            </div>
+            <br />
+            <div>
+                {{ dialogTask.Details }}
+            </div>
+        </script>
+
     </div>
     <script data-main="Scripts/AppConfig" type="text/javascript" src="Scripts/require.js"></script>
 
