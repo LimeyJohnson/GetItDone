@@ -1,10 +1,13 @@
 ﻿using GetItDone.DAL;
 using GetItDone.DAL.Models;
 using System;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using TrelloNet;
 
 namespace GetItDone.Web.Controllers
 {
@@ -40,7 +43,16 @@ namespace GetItDone.Web.Controllers
         // GET: /Auth/
         public ActionResult Login()
         {
-            return View();
+            NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+            queryString["callback_method"] = "postMessage";
+            queryString["return_url"] = "http://localhost:22088/Auth/Login";
+            queryString["scope"] = "read,write";
+            queryString["expiration"] = "never";
+            queryString["name"] = "Andrew's App";
+            queryString["key"] = "e3da5185d8b29c21996f793a5dd0ef06";
+            Debug.Print("QueryString = "+queryString);
+            return Redirect("https://trello.com/1/authorize?"+queryString);
+            
         }
 
         public ActionResult Logout()

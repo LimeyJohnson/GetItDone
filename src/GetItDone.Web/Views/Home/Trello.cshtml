@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GetITDone</title>
+    <link href="~/Styles/Index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link href="~/Styles/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="todomvc" ng-controller="TodoController">
+        <div class="newboard">
+            <input type="text" ng-model="newBoard.Name" />
+            <input type="button" ng-click="createBoard()" value="Create Board" />
+        </div>
+        <div ng-repeat="board in boards" ng-model="Board" class="taskcontainer" board-id="{{ board.BoardID }}" ng-cloak>
+            <div>
+                <h2>{{ board.Name }} ({{ board.Tasks.length }})</h2>
+                <img src="~/Images/plusicon.png" ng-click="addNewTask(board)" class="add" />
+                <img src="~/Images/menuicon.png" ng-click="board.Menu = !board.Menu" class="menu" />
+            </div>
+            <div>
+                <div ng-show="board.Menu">
+                    <div>
+                        <a ng-click="deleteBoard(board)"><img class="delete" src="~/Images/deleteicon.png" /></a>
+                    </div>
+                    <div>
+                        Today<input type="radio" ng-model="board.Filter" value="0" ng-change="updateBoard(board)" />
+                        Yesterday<input type="radio" ng-model="board.Filter" value="1" ng-change="updateBoard(board)" />
+                        7<input type="radio" ng-model="board.Filter" value="6" ng-change="updateBoard(board)" />
+                        30<input type="radio" ng-model="board.Filter" value="29" ng-change="updateBoard(board)" />
+                        All<input type="radio" ng-model="board.Filter" value="" ng-change="updateBoard(board)" />
+                    </div>
+                    <div>
+                        <input id="name" type="text" name="Name" ng-model="board.Name" /> <input type="button" value="Change" ng-click="updateBoard(board)" />
+                    </div>
+                </div>
+                <div ng-hide="board.Menu" class="tasklist">
+                    <div ng-repeat="task in board.Tasks" ng-cloak task-id="{{ task.TaskID }}">
+                        <a href="" ng-click="openModal(task)">{{ task.Name }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/ng-template" id="modaldialog.html">
+            <div>
+                {{ dialogTask.Name }}
+                <a ng-click="deleteTask(dialogTask, board)"><img class="delete" src="Images/deleteicon.png" /></a>
+                <a ng-click="setTaskEditable(dialogTask)"><img class="edit" src="Images/editicon.png" /></a>
+            </div>
+            <div id="createdDate">
+                Created: {{ dialogTask.Created | date:'EEE M/d/yy' }}
+            </div>
+            <div ng-show="dialogTask.Due">
+                Due : {{ dialogTask.Due | date:'EEE M/d/yy' }}
+            </div>
+            <br />
+            <div>
+                {{ dialogTask.Details }}
+            </div>
+        </script>
+
+    </div>
+    <script data-main="/Scripts/AppConfig" type="text/javascript" src="/Scripts/require.js"></script>
+
+</body>
+</html>
+

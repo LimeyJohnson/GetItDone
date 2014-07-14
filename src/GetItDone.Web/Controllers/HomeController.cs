@@ -24,5 +24,17 @@ namespace GetItDone.Web.Controllers
             
             return RedirectToAction("Login", "Auth");
         }
+        public ActionResult Trello()
+        {
+
+            //Check that the are logged in, if they are not redirect to login
+            User user = CookieHelper.LoggedInUser(Request, db);
+            if (user != null)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction("Login", "Auth");
+        }
     }
 }

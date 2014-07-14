@@ -1,0 +1,10 @@
+﻿
+
+
+
+$(function () {
+    $("#loginTag").click(function () {
+        
+    })
+});
+
