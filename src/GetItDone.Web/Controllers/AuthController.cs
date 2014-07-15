@@ -17,41 +17,30 @@ namespace GetItDone.Web.Controllers
         // GET: /Auth/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "Email, Password")] User User)
+        public ActionResult Login(string token)
         {
+            Trello trello = new Trello("e3da5185d8b29c21996f793a5dd0ef06");
+            trello.Authorize(token);
 
-            var authedUser = (from u in db.Users where u.Email.Equals(User.Email, StringComparison.InvariantCultureIgnoreCase) select u).FirstOrDefault();
-            //Check if we got any users
-            if (authedUser!=null)
-            {
-                 //Check if the password is correct
-                if (Crypto.VerifyHashedPassword(authedUser.Password, User.Password))
-                {
-                    Guid sessionGuid = CreateSession(authedUser, db);
-                    //Set cookie for login
-                    HttpCookie cookie = new HttpCookie("auth", sessionGuid.ToString());
-                    cookie.Expires = DateTime.Now.AddMonths(1);
-                    Response.AppendCookie(cookie);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            ViewBag.LoginMessage = "Invalid Password or Email";
-            return View();
-
+            Debug.Print(trello.Members.Me().FullName);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: /Auth/
         public ActionResult Login()
         {
-            NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["callback_method"] = "postMessage";
-            queryString["return_url"] = "http://localhost:22088/Auth/Login";
-            queryString["scope"] = "read,write";
-            queryString["expiration"] = "never";
-            queryString["name"] = "Andrew's App";
-            queryString["key"] = "e3da5185d8b29c21996f793a5dd0ef06";
-            Debug.Print("QueryString = "+queryString);
-            return Redirect("https://trello.com/1/authorize?"+queryString);
+            //Request.Cookies("_")
+            //NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
+
+            //queryString["callback_method"] = "fragment";
+            //queryString["return_url"] = "http://localhost:22088/Auth/Login";
+            //queryString["scope"] = "read,write";
+            //queryString["expiration"] = "never";
+            //queryString["name"] = "Andrew's App";
+            //queryString["key"] = "e3da5185d8b29c21996f793a5dd0ef06";
+            //Debug.Print("QueryString = "+queryString);
+            //return Redirect("https://trello.com/1/authorize?"+queryString);
+            return View();
             
         }
 

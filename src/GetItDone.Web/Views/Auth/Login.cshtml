@@ -17,5 +17,13 @@
 </head>
 <body>
     <a id="loginTag" href="">Log Into Trello</a>
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+    }
+    
+
 </body>
 </html>
