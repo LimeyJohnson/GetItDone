@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using TrelloNet;
 
 namespace GetItDone.Web.Controllers
 {
@@ -57,6 +58,18 @@ namespace GetItDone.Web.Controllers
             }
 
         }
+        public Trello GetTrello(HttpRequestMessage request)
+        {
+            CookieHeaderValue cookie = request.Headers.GetCookies("trello").FirstOrDefault();
+            if (cookie != null)
+            {
+                Trello trello = new Trello("e3da5185d8b29c21996f793a5dd0ef06");
+                trello.Authorize(cookie["trello"].Value);
+                return trello;
+            }
+            return null;
+            
+        }
         private static User LoggedInUser(Guid cookieGuid, GetItDoneContext db)
         {
             db = db ?? new GetItDoneContext();
@@ -69,5 +82,7 @@ namespace GetItDone.Web.Controllers
 
             return null;
         }
+
+       
     }
 }
