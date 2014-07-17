@@ -58,17 +58,28 @@ namespace GetItDone.Web.Controllers
             }
 
         }
-        public Trello GetTrello(HttpRequestMessage request)
+        public static Trello GetTrello(HttpRequestMessage request)
         {
             CookieHeaderValue cookie = request.Headers.GetCookies("trello").FirstOrDefault();
-            if (cookie != null)
+            return GetTrello(cookie["trello"].Value);
+        }
+        public static Trello GetTrello(HttpRequestBase request)
+        {
+            if (request.Cookies["auth"] != null)
+            {
+                return GetTrello(request.Cookies["trello"].Value);
+            }
+            return null;
+        }
+        public static Trello GetTrello(string trelloToken)
+        {
+            if (!string.IsNullOrEmpty(trelloToken))
             {
                 Trello trello = new Trello("e3da5185d8b29c21996f793a5dd0ef06");
-                trello.Authorize(cookie["trello"].Value);
+                trello.Authorize(trelloToken);
                 return trello;
             }
             return null;
-            
         }
         private static User LoggedInUser(Guid cookieGuid, GetItDoneContext db)
         {

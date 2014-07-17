@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrelloNet;
 
 namespace GetItDone.Web.Controllers
 {
@@ -14,26 +15,13 @@ namespace GetItDone.Web.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-
-            //Check that the are logged in, if they are not redirect to login
-            User user = CookieHelper.LoggedInUser(Request, db);
-            if(user != null)
+            //Get the authorized trello client
+            Trello t = CookieHelper.GetTrello(Request);
+            if (t != null)
             {
-                return View(user);
+                return View();
             }
             
-            return RedirectToAction("Login", "Auth");
-        }
-        public ActionResult Trello()
-        {
-
-            //Check that the are logged in, if they are not redirect to login
-            User user = CookieHelper.LoggedInUser(Request, db);
-            if (user != null)
-            {
-                return View(user);
-            }
-
             return RedirectToAction("Login", "Auth");
         }
     }
