@@ -5,4 +5,4 @@ import directives = require("directives");
 import TCntrl = require("todocontroller");
 'use strict';
 
-export var app = angular.module('todomvc',['ui.bootstrap']).controller("TodoController", TCntrl.TodoController);
+export var app = angular.module('todomvc',[]).controller("TodoController", TCntrl.TodoController);

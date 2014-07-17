@@ -1,9 +1,9 @@
 /// <reference path="../scripts/typings/requirejs/require.d.ts" />
 require.config({
-    baseUrl: '//Scripts',
+    baseUrl: 'Scripts',
     paths: {
         jquery: "jquery-2.1.1.min",
-        angular: "angular.min",
+        angular: "angular",
     },
     shim: {
         jquery: {
