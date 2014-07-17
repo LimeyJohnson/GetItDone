@@ -23,9 +23,30 @@ namespace GetItDone.Web.Controllers
             trello.Authorize(token);
 
             Debug.Print(trello.Members.Me().FullName);
+            User u = CreateOrGetTrelloUser(trello, token);
+            HttpCookie trelloCookie = new HttpCookie("trello", token);
+            Response.AppendCookie(trelloCookie);
             return RedirectToAction("Index", "Home");
         }
 
+        private User CreateOrGetTrelloUser(Trello t, string token)
+        {
+            Member member = t.Members.Me();
+            User user = (from u in db.Users where u.TrelloID == member.Id select u).FirstOrDefault<User>();
+            if(user == null)
+            {
+                User u = new User()
+                {
+                    FirstName = member.FullName,
+                    TrelloID = member.Id,
+                    Joined = DateTime.Now,
+                    TrelloToken = token
+                };
+                db.Users.Add(u);
+                db.SaveChanges();
+            }
+            return user;
+        }
         // GET: /Auth/
         public ActionResult Login()
         {

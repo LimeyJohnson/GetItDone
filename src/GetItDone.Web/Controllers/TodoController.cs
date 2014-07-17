@@ -180,7 +180,6 @@ namespace GetItDone.Web.Controllers
             if (user != null)
             {
                 db.Entry(user).Collection(u => u.Boards).Load();
-                postedBoard.Creator = user;
                 user.Boards.Add(postedBoard);
                 db.SaveChanges();
                 return Ok(postedBoard);

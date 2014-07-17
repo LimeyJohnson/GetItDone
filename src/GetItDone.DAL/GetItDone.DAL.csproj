@@ -38,8 +38,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,6 +53,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TrelloNet">
+      <HintPath>..\packages\TrelloNet.0.6.2\lib\net40-Client\TrelloNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201404011649560_InitialUserTask.cs" />
@@ -119,14 +126,20 @@
     <Compile Include="Migrations\201406030452027_PlayLists.Designer.cs">
       <DependentUpon>201406030452027_PlayLists.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407171812593_RemoveMusicTables.cs" />
+    <Compile Include="Migrations\201407171812593_RemoveMusicTables.Designer.cs">
+      <DependentUpon>201407171812593_RemoveMusicTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407172035194_TrelloID.cs" />
+    <Compile Include="Migrations\201407172035194_TrelloID.Designer.cs">
+      <DependentUpon>201407172035194_TrelloID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\PlayList.cs" />
-    <Compile Include="Models\Track.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\GetItDoneContext.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +201,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406030452027_PlayLists.resx">
       <DependentUpon>201406030452027_PlayLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407171812593_RemoveMusicTables.resx">
+      <DependentUpon>201407171812593_RemoveMusicTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407172035194_TrelloID.resx">
+      <DependentUpon>201407172035194_TrelloID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

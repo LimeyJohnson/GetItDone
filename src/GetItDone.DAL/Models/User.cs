@@ -18,9 +18,7 @@ namespace GetItDone.DAL.Models
         public int UserID { get; set; }
         [Required]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
-        [Required]
         public string Email { get; set; }
         public string Phone { get; set; }
         [Column(TypeName = "datetime2")]
@@ -28,12 +26,8 @@ namespace GetItDone.DAL.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-
-        #region Playlist
-
-        public virtual List<PlayList> PlayLists { get; set; }
-
-        #endregion
+        public string TrelloID { get; set; }
+        public string TrelloToken { get; set; }
 
         public virtual List<Board> Boards
         {
